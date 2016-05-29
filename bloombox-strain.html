@@ -57,13 +57,12 @@
 
       :host .row {
         display: block;
-        margin-top: 1em;
-        margin-bottom: 1em;
+        margin-top: 20px;
       }
 
       :host .row.stock-flags {
         min-height: 60px;
-        line-height: 40px;
+        line-height: 30px;
       }
 
       :host .row iron-label {
@@ -96,11 +95,11 @@
         height: 56px;
       }
 
-      :host .zero-state-form.form-wrap .sale-toggle-option paper-slider {
-        line-height: 20px;
+      :host paper-slider {
         --paper-slider-active-color: var(--bloombox-green-primary);
         --paper-slider-knob-color: var(--bloombox-green-primary);
         --paper-slider-pin-color: var(--bloombox-green-primary);
+        --paper-slider-secondary-color: #333;
       }
 
       :host .zero-state-form.form-wrap .sale-toggle-option .sale-toggle-container {
@@ -122,11 +121,11 @@
         margin-top: 5px;
       }
 
-      :host .row.ancestry-genetics {
+      :host .ancestry-genetics {
         min-height: 40px;
       }
 
-      :host .row.ancestry-genetics paper-checkbox {
+      :host .ancestry-genetics paper-checkbox {
         margin-top: 13px;
       }
 
@@ -160,6 +159,17 @@
 
       :host div.card-actions.strain-zerostate-actions {
         margin-left: 0;
+      }
+
+      :host .row-label {
+        margin-top: 15px;
+        line-height: 30px;
+      }
+
+      :host .row-label .row-label-value {
+        text-transform: uppercase;
+        font-size: 8pt;
+        border-bottom: 1px solid black;
       }
     </style>
 
@@ -254,8 +264,24 @@
             </div><!-- end .row.basic-info -->
 
             <div class="category-info row">
+              <div class="row-label">
+                <span class="row-label-value">Origins</span>
+              </div><!-- end div.row-label -->
+
+              <div class="ancestry-genetics">
+                <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+
+                <div class="ancestry-spec">
+                  <template is="dom-if" if="{{ancestry}}">
+                    <paper-input id="maleAncestryField" no-label-float placeholder="Male" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                    <span class="genetics-separator">x</span>
+                    <paper-input id="femaleAncestryField" no-label-float placeholder="Female" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+                  </template>
+                </div><!-- end div.ancestry-spec -->
+              </div><!-- end .row.ancestry-genetics -->
+
               <!-- Grow -->
-              <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink required name="grow">
+              <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
                 <paper-listbox class="dropdown-content" selected="[[selectedGrow()]]">
                   <paper-item>Indoor</paper-item>
                   <paper-item>Greenhouse</paper-item>
@@ -264,7 +290,7 @@
               </paper-dropdown-menu>
 
               <!-- Species -->
-              <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink required name="species">
+              <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
                 <paper-listbox class="dropdown-content" selected="[[selectedSpecies()]]">
                   <paper-item>Indica</paper-item>
                   <paper-item>Hybrid (Indica Dominant)</paper-item>
@@ -275,20 +301,12 @@
               </paper-dropdown-menu>
             </div><!-- end .row.category-info -->
 
-            <div class="ancestry-genetics row">
-              <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
-
-              <div class="ancestry-spec">
-                <template is="dom-if" if="{{ancestry}}">
-                  <paper-input id="maleAncestryField" no-label-float placeholder="Male" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
-                  <span class="genetics-separator">x</span>
-                  <paper-input id="femaleAncestryField" no-label-float placeholder="Female" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
-                </template>
-              </div>
-            </div><!-- end .row.ancestry-genetics -->
-
-            <!-- Test Results -->
+            <!-- Pricing/Sale Flags -->
             <div class="stock-flags row">
+              <div class="row-label">
+                <span class="row-label-value">Pricing</span>
+              </div><!-- end div.row-label -->
+
               <div class="premium-toggle-option">
                 <paper-checkbox id="premiumToggle" checked="[[isPremium()]]" class="form-item premium-toggle" noink>Minimally Processed (MPMH)</paper-checkbox>
               </div><!-- end .premium-toggle-option -->
@@ -308,6 +326,10 @@
             
             <!-- Test Results -->
             <div class="test-results row">
+              <div class="row-label">
+                <span class="row-label-value">Testing</span>
+              </div><!-- end div.row-label -->
+
               <paper-checkbox id="testsToggle" checked="[[knownTestResults()]]" on-tap="toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
               <template is="dom-if" if="{{tests}}">
                 <!-- CBD & THC ratings -->
