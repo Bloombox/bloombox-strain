@@ -28,8 +28,7 @@
 <link rel="import" href="../bloombox-pricelist/bloombox-pricelist.html">
 
 
-
-<dom-module id="bloom-strain">
+<dom-module id="bloombox-strain">
   <template>
     <style is="custom-style" include="bloombox-styles">
       :host {
@@ -85,7 +84,7 @@
 
     </style>
 
-    <div class="bloom-strain strain-wrapper">
+    <div class="bloombox-strain strain-wrapper">
       <!-- - - - - - - - - - - -->
       <!--   Sealed  Content   -->
       <!-- - - - - - - - - - - -->
@@ -153,7 +152,7 @@
 
             <!-- Price List -->
             <div class="row">
-              <bloombox-pricelist id="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
+              <bloombox-pricelist class="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
             </div>
             <!-- end price list -->
           </div>
@@ -254,7 +253,7 @@
 
             <!-- Price List -->
             <div class="row">
-              <bloom-pricelist id="strainEditablePricelist" manifest='{{pricelist}}' currency="$" editable></bloom-pricelist>
+              <bloombox-pricelist class="strainEditablePricelist" manifest='{{pricelist}}' currency="$" editable></bloombox-pricelist>
             </div>
           </div>
           <!-- Actions -->
@@ -277,8 +276,8 @@
 
   <script>
     (function () {
-      Polymer.BloomStrain = Polymer({
-        is: 'bloom-strain',
+      Polymer.BloomboxStrain = Polymer({
+        is: 'bloombox-strain',
         properties: {
           // -- UI state
           locations: {
