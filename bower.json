@@ -1,0 +1,49 @@
+{
+  "name": "bloombox-strain",
+  "version": "0.0.1",
+  "description": "Provides UI to create and manage strains of cannabis flowers",
+  "private": true,
+  "authors": [
+    "Sam Gammon <sam@momentum.io>"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "bloombox"
+  ],
+  "main": [
+    "bloombox-strain.html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bloombox/bloombox-strain.git"
+  },
+  "license": "Private, All Rights Reserved",
+  "homepage": "https://github.com/bloombox/bloombox-strain",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.8",
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3",
+    "iron-label": "PolymerElements/iron-label#^1.0.2",
+    "paper-item": "PolymerElements/paper-item#^1.2.1",
+    "paper-card": "PolymerElements/paper-item#^1.1.1",
+    "paper-input": "PolymerElements/paper-input#^1.1.11",
+    "paper-button": "PolymerElements/paper-button#^1.0.12",
+    "paper-slider": "PolymerElements/paper-slider#^1.0.11",
+    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.2.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
+    "bloombox-pricelist": "Bloombox/bloombox-pricelist#^0.0.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "bloombox-styles": "Bloombox/bloombox-styles#^0.0.1",
+    "test-fixture": "polymerelements/test-fixture#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}

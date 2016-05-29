@@ -1,0 +1,556 @@
+
+<!--
+`<bloombox-strain>` provides a form for creating, editing and viewing cannabis flower strains.
+
+@group Bloombox Elements
+@element bloombox-strain
+@demo demo/index.html
+@homepage bloombox.github.io
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-label/iron-label.html">
+
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-textarea.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<link rel="import" href="../paper-slider/paper-slider.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+
+<link rel="import" href="../bloombox-pricelist/bloombox-pricelist.html">
+
+
+
+<dom-module id="bloom-strain">
+  <template>
+    <style>
+    </style>
+
+    <div class="bloom-strain strain-wrapper">
+      <!-- - - - - - - - - - - -->
+      <!--   Sealed  Content   -->
+      <!-- - - - - - - - - - - -->
+      <template is="dom-if" if="{{!zerostate}}">
+        <paper-card heading="{{name}}" class="fullwidth">
+          <div class="strain-data-content card-content">
+            <!-- Stock Flags -->
+            <div class="stock-flags strain-info test-info row">
+              <!-- MPMH -->
+              <template is="dom-if" if="{{premium}}">
+                <iron-label class="premium-label"><span>MPMH</span></iron-label>
+              </template>
+
+              <!-- Sale -->
+              <template is="dom-if" if="{{sale}}">
+                <iron-label class="sale-label"><span>{{sale}}% OFF</span></iron-label>
+              </template>
+
+              <!-- Grow -->
+              <iron-label class="grow-label"><span class="{{lowercase(grow)}}-label">{{grow}}</span></iron-label>
+
+              <!-- Species -->
+              <iron-label class="species-label"><span class="{{lowercase(species)}}-label">{{species}}</span></iron-label>
+
+              <!-- Test Results -->
+              <template is="dom-if" if="{{tests}}">
+                <!-- Ratings -->
+                <iron-label class="rating-label thc-label"><span>THC: {{tests.thc}}%</span></iron-label>
+                <iron-label class="rating-label cbd-label"><span>CBD: {{tests.cbd}}%</span></iron-label>
+
+                <!-- Terpene Profile -->
+                <template is="dom-if" if="{{tests.terpenes.pinene}}">
+                  <iron-label class="terpene-label pinene-label"><span>PNE</span></iron-label>
+                </template>
+
+                <template is="dom-if" if="{{tests.terpenes.myrcene}}">
+                  <iron-label class="terpene-label myrcene-label"><span>MYR</span></iron-label>
+                </template>
+
+                <template is="dom-if" if="{{tests.terpenes.limonene}}">
+                  <iron-label class="terpene-label limonene-label"><span>LMN</span></iron-label>
+                </template>
+
+                <template is="dom-if" if="{{tests.terpenes.caryophyllene}}">
+                  <iron-label class="terpene-label caryophyllene-label"><span>CRY</span></iron-label>
+                </template>
+
+                <template is="dom-if" if="{{tests.terpenes.linalool}}">
+                  <iron-label class="terpene-label linalool-label"><span>LIN</span></iron-label>
+                </template>
+              </template>
+            </div>
+            <!-- end stock flags -->
+
+            <!-- Strain Description -->
+            <div class="row">
+              <template is="dom-if" if="{{description}}">
+                <div class="strain-description">{{description}}</div>
+              </template>
+              <template is="dom-if" if="{{!hasDescription()}}">
+                <div class="strain-no-description">(No description)</div>
+              </template>
+            </div>
+            <!-- end description -->
+
+            <!-- Price List -->
+            <div class="row">
+              <bloombox-pricelist id="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
+            </div>
+            <!-- end price list -->
+          </div>
+          <div class="card-actions">
+            <paper-button on-tap="toggleEditing">Edit</paper-button>
+            <paper-button on-tap="triggerDelete">Delete</paper-button>
+          </div>
+        </paper-card>
+      </template>
+      
+      <!-- - - - - - - - - - - -->
+      <!-- Zero-State  Content -->
+      <!-- - - - - - - - - - - -->
+      <template is="dom-if" if="{{zerostate}}">
+        <paper-card class="fullwidth">
+          <div class="form-wrap zero-state-form card-content">
+            <div class="basic-info row">
+              <!-- Strain Name & Description -->
+              <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
+              <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
+            </div><!-- end .row.basic-info -->
+
+            <div class="category-info row">
+              <!-- Grow -->
+              <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink required name="grow">
+                <paper-listbox class="dropdown-content" selected="[[selectedGrow()]]">
+                  <paper-item>Indoor</paper-item>
+                  <paper-item>Greenhouse</paper-item>
+                  <paper-item>Outdoor</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <!-- Species -->
+              <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink required name="species">
+                <paper-listbox class="dropdown-content" selected="[[selectedSpecies()]]">
+                  <paper-item>Indica</paper-item>
+                  <paper-item>Hybrid (Indica Dominant)</paper-item>
+                  <paper-item>Hybrid (No Dominance)</paper-item>
+                  <paper-item>Hybrid (Sativa Dominant)</paper-item>
+                  <paper-item>Sativa</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <!-- Genetic Ancestry -->
+              <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+              <template is="dom-if" if="{{ancestry}}">
+                <paper-input id="maleAncestryField" placeholder="Male Parent" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                <span class="genetics-separator">x</span>
+                <paper-input id="femaleAncestryField" placeholder="Female Parent" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+              </template>
+            </div><!-- end .row.category-info -->
+
+            <!-- Test Results -->
+            <div class="stock-flags row">
+              <div class="premium-toggle-option">
+                <paper-checkbox id="premiumToggle" checked="[[isPremium()]]" class="form-item premium-toggle" noink>Minimally Processed (MPMH)</paper-checkbox>
+              </div><!-- end .premium-toggle-option -->
+
+              <div class="sale-toggle-option">
+                <div class="sale-toggle-container">
+                  <paper-checkbox id="saleToggle" checked="[[isOnSale()]]" on-tap="toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+                </div><!-- end .sale-toggle-container -->
+                <template is="dom-if" if="{{sale}}">
+                  <div class="sale-amount-container">
+                    <paper-slider id="saleValue" pin value="{{sale}}" max="95" min="5" editable step="5" class="form-item"></paper-slider>
+                  </div><!-- end .sale-amount-container -->
+                  <div class="sale-percentage-label">% off</div>
+                </template>
+              </div><!-- end .sale-toggle-option -->
+            </div><!-- end .row.stock-flags -->
+            
+            <!-- Test Results -->
+            <div class="test-results row">
+              <paper-checkbox id="testsToggle" checked="[[knownTestResults()]]" on-tap="toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
+              <template is="dom-if" if="{{tests}}">
+                <!-- CBD & THC ratings -->
+                <div class="test-result-ratings">
+                  <div class="test-result-rating">
+                    <div>THC Rating: <span id="gradeLabel" class="caption"></span></div><br>
+                    <paper-slider id="thcValue" pin value="[[thcValue()]]" class="form-item" editable secondary-progress="20.0" step="0.1" max="40.0"></paper-slider>
+                  </div>
+                  <div class="test-result-rating">
+                    <div>CBD Rating: <span id="gradeLabel" class="caption"></span></div><br>
+                    <paper-slider id="cbdValue" pin value="[[cbdValue()]]" class="form-item" editable secondary-progress="10.0" step="0.1" max="30.0"></paper-slider>
+                  </div>
+                </div>
+
+                <!-- Terpenes -->
+                <div class="test-result-terpenes">
+                  <paper-checkbox id="terpenePinene" checked="[[hasTerpene('pinene')]]" class="form-item terpene-result terpene-pinene" noink name="terpenePinene">Pinene</paper-checkbox>
+                  <paper-checkbox id="terpeneMyrcene" checked="[[hasTerpene('myrcene')]]" class="form-item terpene-result terpene-myrcene" noink name="terpeneMyrcene">Myrcene</paper-checkbox>
+                  <paper-checkbox id="terpeneLimonene" checked="[[hasTerpene('limonene')]]" class="form-item terpene-result terpene-limonene" noink name="terpeneLimonene">Limonene</paper-checkbox>
+                  <paper-checkbox id="terpeneCaryophyllene" checked="[[hasTerpene('caryophyllene')]]" class="form-item terpene-result terpene-caryophyllene" noink name="terpeneCaryophyllene">Carophyllene</paper-checkbox>
+                  <paper-checkbox id="terpeneLinalool" checked="[[hasTerpene('linalool')]]" class="form-item terpene-result terpene-linalool" noink name="terpeneLinalool">Linalool</paper-checkbox>
+                </div><!-- end .test-result-terpenes -->
+              </template>
+            </div><!-- end .row.test-results -->
+
+            <!-- Price List -->
+            <div class="row">
+              <bloom-pricelist id="strainEditablePricelist" manifest='{{pricelist}}' currency="$" editable></bloom-pricelist>
+            </div>
+          </div>
+          <!-- Actions -->
+          <template is="dom-if" if="[[editing]]">
+            <div class="strain-zerostate-actions card-actions row">
+              <paper-button id="saveButton" on-tap="commitEdits"><iron-icon icon="save"></iron-icon>Save</paper-button>
+              <paper-button id="cancelButton" on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
+            </div>
+          </template>
+          <template is="dom-if" if="[[!editing]]">
+            <div class="strain-zerostate-actions edit-actions card-actions row">
+              <paper-button id="submitButton" on-tap="persist"><iron-icon icon="create"></iron-icon>Create</paper-button>
+              <paper-button id="discardButton" on-tap="toggleAddEntry"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
+            </div>
+          </template>
+        </paper-card>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      Polymer.BloomStrain = Polymer({
+        is: 'bloom-strain',
+        properties: {
+          // -- UI state
+          locations: {
+            type: Object,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          editing: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          zerostate: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          // -- strain properties
+          key: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          name: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          description: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          pictures: {
+            type: Array,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          tests: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          grow: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          species: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          ancestry: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          pricelist: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          sale: {
+            type: Number,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          premium: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true
+          }
+        },
+
+        lowercase: function(item) {
+          return item.toLowerCase();
+        },
+
+        toggleSale: function() {
+          this.sale = this.$$("#saleToggle").checked ?
+            20 : undefined;
+        },
+
+        isOnSale: function() {
+          return this.sale !== undefined && this.sale > 0;
+        },
+
+        isPremium: function() {
+          if (this.premium !== undefined && this.premium !== null) {
+            return this.premium;
+          }
+          return false;
+        },
+
+        hasDescription: function() {
+          var description = this.get("description");
+          return description !== undefined && description !== null && description.length > 1;
+        },
+
+        knownAncestry: function() {
+          return this.ancestry !== undefined && this.ancestry !== null && typeof this.ancestry == "object";
+        },
+
+        knownTestResults: function() {
+          return this.tests !== undefined && this.tests !== null && typeof this.tests == "object";
+        },
+
+        hasTerpene: function(terpene) {
+          if (this.knownTestResults() && this.tests.terpenes !== undefined && this.tests.terpenes !== null) {
+            return this.tests.terpenes[terpene];
+          }
+          return false;
+        },
+
+        selectedGrow: function() {
+          // @TODO: we can do better than this
+          var grow = this.get("grow");
+
+          if ((this.hasAttribute("zerostate") && !this.get("editing")) || grow === undefined || grow == null) {
+            return undefined;
+          }
+          grow = grow.toLowerCase();
+          if (grow.indexOf("indoor") != -1) { return "0"; }
+          if (grow.indexOf("greenhouse") != -1) { return "1"; }
+          if (grow.indexOf("outdoor") != -1) { return "2"; }
+        },
+
+        selectedSpecies: function() {
+          // @TODO: same here
+          var species = this.get("species");
+
+          if ((this.hasAttribute("zerostate") && !this.get("editing")) || species === undefined || species == null) {
+            return undefined;
+          }
+          species = species.toLowerCase();
+          if (species.indexOf("hybrid") != -1) {
+            if (species.indexOf("indica") != -1) { return "1"; }
+            if (species.indexOf("sativa") != -1) { return "3"; }
+            return "2";
+          }
+          if (species.indexOf("indica") != -1) { return "0"; }
+          if (species.indexOf("sativa") != -1) { return "4"; }
+          return "";
+        },
+
+        thcValue: function() {
+          if (this.tests !== undefined && this.tests != null && typeof this.tests == "object") {
+            return this.tests.thc;
+          }
+          return 1.0;
+        },
+
+        cbdValue: function() {
+          if (this.tests !== undefined && this.tests != null && typeof this.tests == "object") {
+            return this.tests.cbd;
+          }
+          return 1.0;
+        },
+
+        toggleAncestry: function() {
+          this.ancestry = this.$$("#ancestryToggle").checked ?
+            {} : undefined;
+        },
+
+        toggleTests: function() {
+          this.tests = this.$$("#testsToggle").checked ?
+            {} : undefined;
+        },
+
+        toggleAddEntry: function() {
+          bloom.app.toggleAddEntry();
+        },
+
+        toggleEditing: function() {
+          console.log("Editing item...", this);
+          this.set("editing", true);
+          this.set("zerostate", true);
+        },
+
+        commitEdits: function() {
+          var previous = this.readObjectData(),
+              serialized = this.readZeroStateForm()
+              that = this;
+          console.log("Committing edits...", previous, serialized);
+          bloom.app.saveEditsForEntry(this.get("key"), previous, serialized, function (error) {
+            // handle edit success/fail
+            if (error) {
+              console.error("Failed to save edits for item: ", this, error);
+              alert('Failed to apply edits.');
+            } else {
+              console.log("Edits applied successfully.");
+              that.set("editing", false);
+              that.set("zerostate", false);
+            }
+          });
+        },
+
+        cancelEdits: function() {
+          console.log("Cancelled staged edits for item.");
+          this.set("editing", false);
+          this.set("zerostate", false);
+        },
+
+        triggerDelete: function() {
+          console.log("Deleting item...", this);
+          bloom.app.deleteEntryAtId(this.get("key"));
+        },
+
+        readObjectData: function() {
+          var payload = {};
+
+          // handle required fields
+          payload.__firebaseKey__
+          payload.name = this.get("name");
+          payload.grow = this.get("grow");
+          payload.species = this.get("species");
+
+          // handle ancestry
+          if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
+            payload.ancestry = {
+              male: this.get("ancestry").male,
+              female: this.get("ancestry").female
+            };
+          }
+
+          // handle test results
+          if (this.get("tests") !== undefined && this.get("tests") != null) {
+            payload.tests = {
+              thc: this.get("tests").thc,
+              cbd: this.get("tests").cbd,
+              terpenes: {
+                pinene: this.get("tests").terpenes.pinene,
+                myrcene: this.get("tests").terpenes.myrcene,
+                limonene: this.get("tests").limonene,
+                caryophyllene: this.get("tests").caryophyllene,
+                linalool: this.get("tests").linalool
+              }
+            };
+          }
+
+          // @TODO: read price from form
+
+          // handle optional fields
+          if (this.get("premium") == true) payload.premium = true;
+          if (this.get("sale") !== undefined && this.get("sale") != null) payload.sale = this.get("sale");
+          if (this.get("description") !== undefined && this.get("description") !== null &&
+              this.get("description").length > 0) payload.description = this.get("description");
+          return payload;
+        },
+
+        readZeroStateForm: function() {
+          var payload = {},
+              manifest = this.$$("#strainEditablePricelist").readManifest(this),
+              pricelist = {},
+              mi, mpayload;
+
+          // handle required fields
+          payload.name = this.$$("#nameField").value;
+          payload.grow = this.$$("#growField").value;
+          payload.species = this.$$("#speciesField").value;
+
+          // handle ancestry
+          if (this.$$("#ancestryToggle").checked) {
+            payload.ancestry = {
+              male: this.$$("#maleAncestryField").value,
+              female: this.$$("#femaleAncestryField").value
+            };
+          }
+
+          // handle test results
+          if (this.$$("#testsToggle").checked) {
+            payload.tests = {
+              thc: this.$$("#thcValue").value,
+              cbd: this.$$("#cbdValue").value,
+              terpenes: {
+                pinene: this.$$("#terpenePinene").checked,
+                myrcene: this.$$("#terpeneMyrcene").checked,
+                limonene: this.$$("#terpeneLimonene").checked,
+                caryophyllene: this.$$("#terpeneCaryophyllene").checked,
+                linalool: this.$$("#terpeneLinalool").checked
+              }
+            };
+          }
+
+          // handle pricing
+          for (mi in manifest) {
+            mpayload = manifest[mi];
+            pricelist[bloom.strings.strainLabels[mpayload["label"]]] = {
+              available: mpayload["available"],
+              price: Number(mpayload["price"])
+            }
+          }
+          payload.pricelist = pricelist;
+
+          // handle optional fields
+          if (this.$$("#premiumToggle").checked) payload.premium = true;
+          if (this.$$("#saleToggle").checked) payload.sale = this.$$("#saleValue").value;
+          if (this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0)
+            payload.description = this.$$("#descriptionField").value;
+          return payload;
+        },
+
+        persist: function() {
+          bloom.app.saveNewEntry(this.readZeroStateForm());  // read the form into our object
+        }
+      });
+    })();
+  </script>
+</dom-module>

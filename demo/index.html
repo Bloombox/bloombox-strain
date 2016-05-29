@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>bloombox-strain demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../bloombox-strain.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  
+  <style is="custom-style" include="demo-pages-shared-styles">
+    demo-snippet {
+      min-width: 800px;
+    }
+
+    .vertical-section-container.centered {
+      max-width: 800px;
+    }
+  </style>
+</head>
+<body unresolved>
+  <div class="vertical-section-container centered">
+    <h3>Basic strain example</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <bloom-strain
+          key="sample1"
+          name="OG Legend"
+          description="The stickiest of the icky!"
+          premium="true"
+          species="Sativa"
+          grow="Indoor"
+          sale="20"
+          tests='{"cbd":0,"terpenes":{"caryophyllene":true,"limonene":true,"linalool":true,"myrcene":true,"pinene":false},"thc":23.5}'
+          ancestry='{"female":"Female","male":"Male"}'
+          pricelist='[{"label":"1g","available":true,"price":18},{"label":"3.5g","available":false,"price":55},{"label":"7g","available":false,"price":105},{"label":"14g","available":false,"price":195},{"label":"28g","available":true,"price":360}]'></bloom-strain>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <div class="vertical-section-container centered">
+    <h3>Zero-state strain example</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <bloom-strain zerostate></bloom-strain>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+</html>
