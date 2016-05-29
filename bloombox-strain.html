@@ -24,13 +24,65 @@
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 
+<link rel="import" href="../bloombox-styles/bloombox-styles.html">
 <link rel="import" href="../bloombox-pricelist/bloombox-pricelist.html">
 
 
 
 <dom-module id="bloom-strain">
   <template>
-    <style>
+    <style is="custom-style" include="bloombox-styles">
+      :host {
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      :host .strain-no-description {
+        font-style: italic;
+        color: #333;
+      }
+
+      :host .strain-data-content {
+        padding: 10px;
+        padding-left: 15px;
+      }
+
+      :host .row {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+
+      :host .row.stock-flags {
+        margin-left: -10px;
+      }
+
+      :host .row iron-label {
+        padding: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-radius: 3px;
+        background: purple;
+        color: white;
+      }
+
+      :host .row iron-label.premium-label {
+        background: #a2ae50;
+      }
+
+      :host .row iron-label.sale-label {
+        background: red;
+        color: white;
+      }
+
+      :host .zero-state-form.form-wrap {
+        padding: 1em;
+      }
+
+      :host .pricelistContainer {
+        margin-left: -8px;
+      }
+
     </style>
 
     <div class="bloom-strain strain-wrapper">
