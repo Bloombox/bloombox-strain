@@ -34,11 +34,20 @@
       :host {
         display: block;
         margin-bottom: 20px;
+        min-width: 500px;
       }
 
       :host .strain-no-description {
         font-style: italic;
         color: #333;
+      }
+
+      :host .strain-description {
+        margin-left: 10px;
+      }
+
+      :host .zero-state-form .strain-description {
+        margin-left: 0;
       }
 
       :host .strain-data-content {
@@ -53,7 +62,8 @@
       }
 
       :host .row.stock-flags {
-        margin-left: -10px;
+        min-height: 60px;
+        line-height: 40px;
       }
 
       :host .row iron-label {
@@ -82,9 +92,61 @@
         margin-left: -8px;
       }
 
+      :host .zero-state-form.form-wrap .sale-toggle-option {
+        height: 56px;
+      }
+
+      :host .zero-state-form.form-wrap .sale-toggle-option paper-slider {
+        line-height: 20px;
+        --paper-slider-active-color: var(--bloombox-green-primary);
+        --paper-slider-knob-color: var(--bloombox-green-primary);
+        --paper-slider-pin-color: var(--bloombox-green-primary);
+      }
+
+      :host .zero-state-form.form-wrap .sale-toggle-option .sale-toggle-container {
+        display: inline-block;
+        float: left;
+        height: 56px;
+      }
+
+      :host .zero-state-form.form-wrap .sale-percentage-label {
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+        margin-top: 18px;
+      }
+
+      :host .zero-state-form.form-wrap .sale-amount-container {
+        display: inline-block;
+        float: left;
+        margin-top: 5px;
+      }
+
+      :host .row.ancestry-genetics {
+        min-height: 40px;
+      }
+
+      :host .row.ancestry-genetics paper-checkbox {
+        margin-top: 13px;
+      }
+
+      :host .ancestry-spec {
+        display: inline-block;
+        margin-left: 10px;
+      }
+
+      :host .ancestry-spec paper-input {
+        display: inline-block;
+        max-width: 140px;
+      }
+
+      :host .ancestry-spec span.genetics-separator {
+        margin-left: 4px;
+        margin-right: 4px;
+      }
     </style>
 
-    <div class="bloombox-strain strain-wrapper">
+    <div class="strain-wrapper">
       <!-- - - - - - - - - - - -->
       <!--   Sealed  Content   -->
       <!-- - - - - - - - - - - -->
@@ -195,15 +257,19 @@
                   <paper-item>Sativa</paper-item>
                 </paper-listbox>
               </paper-dropdown-menu>
-
-              <!-- Genetic Ancestry -->
-              <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
-              <template is="dom-if" if="{{ancestry}}">
-                <paper-input id="maleAncestryField" placeholder="Male Parent" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
-                <span class="genetics-separator">x</span>
-                <paper-input id="femaleAncestryField" placeholder="Female Parent" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
-              </template>
             </div><!-- end .row.category-info -->
+
+            <div class="ancestry-genetics row">
+              <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+
+              <div class="ancestry-spec">
+                <template is="dom-if" if="{{ancestry}}">
+                  <paper-input id="maleAncestryField" no-label-float placeholder="Male" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                  <span class="genetics-separator">x</span>
+                  <paper-input id="femaleAncestryField" no-label-float placeholder="Female" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+                </template>
+              </div>
+            </div><!-- end .row.ancestry-genetics -->
 
             <!-- Test Results -->
             <div class="stock-flags row">
