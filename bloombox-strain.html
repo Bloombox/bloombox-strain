@@ -144,6 +144,23 @@
         margin-left: 4px;
         margin-right: 4px;
       }
+
+      :host iron-icon {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+
+      :host paper-button {
+        --paper-button-ink-color: var(--bloombox-green-primary);
+      }
+
+      :host div.card-actions {
+        margin-left: 20px;
+      }
+
+      :host div.card-actions.strain-zerostate-actions {
+        margin-left: 0;
+      }
     </style>
 
     <div class="strain-wrapper">
@@ -153,6 +170,16 @@
       <template is="dom-if" if="{{!zerostate}}">
         <paper-card heading="{{name}}" class="fullwidth">
           <div class="strain-data-content card-content">
+            <!-- Strain Description -->
+            <div class="row description-container">
+              <template is="dom-if" if="{{description}}">
+                <div class="strain-description">{{description}}</div>
+              </template>
+              <template is="dom-if" if="{{!hasDescription()}}">
+                <div class="strain-no-description">(No description)</div>
+              </template>
+            </div><!-- end div.row.description-container -->
+
             <!-- Stock Flags -->
             <div class="stock-flags strain-info test-info row">
               <!-- MPMH -->
@@ -177,50 +204,39 @@
                 <iron-label class="rating-label thc-label"><span>THC: {{tests.thc}}%</span></iron-label>
                 <iron-label class="rating-label cbd-label"><span>CBD: {{tests.cbd}}%</span></iron-label>
 
-                <!-- Terpene Profile -->
-                <template is="dom-if" if="{{tests.terpenes.pinene}}">
-                  <iron-label class="terpene-label pinene-label"><span>PNE</span></iron-label>
-                </template>
+                <div class="terpene-results">
+                  <!-- Terpene Profile -->
+                  <template is="dom-if" if="{{tests.terpenes.pinene}}">
+                    <iron-label class="terpene-label pinene-label"><span>PNE</span></iron-label>
+                  </template>
 
-                <template is="dom-if" if="{{tests.terpenes.myrcene}}">
-                  <iron-label class="terpene-label myrcene-label"><span>MYR</span></iron-label>
-                </template>
+                  <template is="dom-if" if="{{tests.terpenes.myrcene}}">
+                    <iron-label class="terpene-label myrcene-label"><span>MYR</span></iron-label>
+                  </template>
 
-                <template is="dom-if" if="{{tests.terpenes.limonene}}">
-                  <iron-label class="terpene-label limonene-label"><span>LMN</span></iron-label>
-                </template>
+                  <template is="dom-if" if="{{tests.terpenes.limonene}}">
+                    <iron-label class="terpene-label limonene-label"><span>LMN</span></iron-label>
+                  </template>
 
-                <template is="dom-if" if="{{tests.terpenes.caryophyllene}}">
-                  <iron-label class="terpene-label caryophyllene-label"><span>CRY</span></iron-label>
-                </template>
+                  <template is="dom-if" if="{{tests.terpenes.caryophyllene}}">
+                    <iron-label class="terpene-label caryophyllene-label"><span>CRY</span></iron-label>
+                  </template>
 
-                <template is="dom-if" if="{{tests.terpenes.linalool}}">
-                  <iron-label class="terpene-label linalool-label"><span>LIN</span></iron-label>
-                </template>
+                  <template is="dom-if" if="{{tests.terpenes.linalool}}">
+                    <iron-label class="terpene-label linalool-label"><span>LIN</span></iron-label>
+                  </template>
+                </div><!-- end div.terpene-results -->
               </template>
-            </div>
-            <!-- end stock flags -->
-
-            <!-- Strain Description -->
-            <div class="row">
-              <template is="dom-if" if="{{description}}">
-                <div class="strain-description">{{description}}</div>
-              </template>
-              <template is="dom-if" if="{{!hasDescription()}}">
-                <div class="strain-no-description">(No description)</div>
-              </template>
-            </div>
-            <!-- end description -->
+            </div><!-- end div.row.stock-flags -->
 
             <!-- Price List -->
-            <div class="row">
+            <div class="row pricelist">
               <bloombox-pricelist class="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
-            </div>
-            <!-- end price list -->
+            </div><!-- end div.row.pricelist -->
           </div>
           <div class="card-actions">
-            <paper-button on-tap="toggleEditing">Edit</paper-button>
-            <paper-button on-tap="triggerDelete">Delete</paper-button>
+            <paper-button on-tap="toggleEditing"><iron-icon icon="create"></iron-icon>Edit</paper-button>
+            <paper-button on-tap="triggerDelete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
           </div>
         </paper-card>
       </template>
@@ -325,13 +341,13 @@
           <!-- Actions -->
           <template is="dom-if" if="[[editing]]">
             <div class="strain-zerostate-actions card-actions row">
-              <paper-button id="saveButton" on-tap="commitEdits"><iron-icon icon="save"></iron-icon>Save</paper-button>
+              <paper-button id="saveButton" raised on-tap="commitEdits"><iron-icon icon="save"></iron-icon>Save</paper-button>
               <paper-button id="cancelButton" on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
             </div>
           </template>
           <template is="dom-if" if="[[!editing]]">
             <div class="strain-zerostate-actions edit-actions card-actions row">
-              <paper-button id="submitButton" on-tap="persist"><iron-icon icon="create"></iron-icon>Create</paper-button>
+              <paper-button id="submitButton" raised on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
               <paper-button id="discardButton" on-tap="toggleAddEntry"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
             </div>
           </template>
