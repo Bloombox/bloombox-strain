@@ -240,6 +240,13 @@
               </template>
             </div><!-- end div.row.stock-flags -->
 
+            <!-- Test Results -->
+            <div class="flower-media row">
+              <div class="bloombox-media-wrap">
+                <bloombox-media disabled partner="[[partner]]" asset$="[[imageValue()]]"></bloombox-media>
+              </div><!-- end div.bloombox-media-wrap -->
+            </div><!-- end .row.test-results -->
+
             <!-- Price List -->
             <div class="row pricelist">
               <bloombox-pricelist class="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
@@ -354,6 +361,13 @@
                   <paper-checkbox id="terpeneLinalool" checked="[[hasTerpene('linalool')]]" class="form-item terpene-result terpene-linalool" noink name="terpeneLinalool">Linalool</paper-checkbox>
                 </div><!-- end .test-result-terpenes -->
               </template>
+            </div><!-- end .row.test-results -->
+
+            <!-- Test Results -->
+            <div class="flower-media row">
+              <div class="bloombox-media-wrap">
+                <bloombox-media partner="[[partner]]" asset$="[[imageValue()]]" on-asset-ready="handleAssetAttach"></bloombox-media>
+              </div><!-- end div.bloombox-media-wrap -->
             </div><!-- end .row.test-results -->
 
             <!-- Price List -->
@@ -471,6 +485,17 @@
             type: Boolean,
             notify: true,
             reflectToAttribute: true
+          },
+
+          image: {
+            type: String,
+            notify: true
+          },
+
+          partner: {
+            type: String,
+            notify: true,
+            value: "mm"
           }
         },
 
@@ -527,6 +552,13 @@
           if (grow.indexOf("outdoor") != -1) { return "2"; }
         },
 
+        imageValue: function() {
+          var image = this.get("image");
+          if (image !== null && image !== undefined)
+            return image;
+          return false;
+        },
+
         selectedSpecies: function() {
           // @TODO: same here
           var species = this.get("species");
@@ -577,6 +609,10 @@
           console.log("Editing item...", this);
           this.set("editing", true);
           this.set("zerostate", true);
+        },
+
+        handleAssetAttach: function(payload) {
+          console.log("Asset attach:", payload);
         },
 
         commitEdits: function() {
