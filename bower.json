@@ -41,7 +41,7 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
-    "bloombox-styles": "Bloombox/bloombox-styles#^0.0.1",
+    "bloombox-styles": "Bloombox/bloombox-styles#^0.0.2",
     "bloombox-media": "Bloombox/bloombox-media#master",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
     "web-component-tester": "^4.0.0",
