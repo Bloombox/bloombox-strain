@@ -26,6 +26,7 @@
 
 <link rel="import" href="../bloombox-media/bloombox-media.html">
 <link rel="import" href="../bloombox-styles/bloombox-styles.html">
+<link rel="import" href="../bloombox-testing/bloombox-testing.html">
 <link rel="import" href="../bloombox-pricelist/bloombox-pricelist.html">
 
 
@@ -246,26 +247,21 @@
               <iron-label class="vegan-label" hidden$="[[!vegan]]"><span>Vegan</span></iron-label>
 
               <!-- Grow -->
-              <iron-label class="grow-label"><span class="{{lowercase(grow)}}-label">{{grow}}</span></iron-label>
+              <iron-label class="grow-label"><span class="[[lowercase(grow)]]-label">[[grow]]</span></iron-label>
 
               <!-- Species -->
-              <iron-label class="species-label"><span class="{{lowercase(species)}}-label">{{species}}</span></iron-label>
+              <iron-label class="species-label"><span class="[[lowercase(species)]]-label">[[species]]</span></iron-label>
 
               <!-- Test Results -->
-              <template is="dom-if" if="{{tests}}">
-                <!-- Ratings -->
-                <iron-label class="rating-label thc-label"><span>THC: {{tests.thc}}%</span></iron-label>
-                <iron-label class="rating-label cbd-label"><span>CBD: {{tests.cbd}}%</span></iron-label>
-
-                <div class="terpene-results">
-                  <!-- Terpene Profile -->
-                  <iron-label class="terpene-label pinene-label" hidden$="{{!tests.terpenes.pinene}}"><span>PNE</span></iron-label>
-                  <iron-label class="terpene-label myrcene-label" hidden$="{{!tests.terpenes.myrcene}}"><span>MYR</span></iron-label>
-                  <iron-label class="terpene-label limonene-label" hidden$="{{!tests.terpenes.limonene}}"><span>LMN</span></iron-label>
-                  <iron-label class="terpene-label caryophyllene-label" hidden$="{{!tests.terpenes.caryophyllene}}"><span>CRY</span></iron-label>
-                  <iron-label class="terpene-label linalool-label" hidden$="{{!tests.terpenes.linalool}}"><span>LIN</span></iron-label>
-                </div><!-- end div.terpene-results -->
-              </template>
+              <bloombox-testing
+                mode="rich"
+                thc="[[tests.thc]]"
+                cbd="[[tests.cbd]]"
+                pinene="[[tests.terpenes.pinene]]"
+                myrcene="[[tests.terpenes.myrcene]]"
+                limonene="[[tests.terpenes.limonene]]"
+                linalool="[[tests.terpenes.linalool]]"
+                caryophyllene="[[tests.terpenes.caryophyllene]]"></bloombox-testing>
             </div><!-- end div.row.stock-flags -->
 
             <!-- Test Results -->
@@ -388,24 +384,16 @@
 
               <paper-checkbox id="testsToggle" checked="[[knownTestResults()]]" on-tap="toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
               <template is="dom-if" if="{{tests}}">
-                <!-- CBD & THC ratings -->
-                <div class="test-result-ratings">
-                  <div class="test-result-rating">
-                    <iron-label><span>THC Rating</span><paper-slider id="thcValue" pin value="[[thcValue()]]" class="form-item" editable secondary-progress="20.0" step="0.1" max="40.0"></paper-slider></iron-label>
-                  </div>
-                  <div class="test-result-rating">
-                    <iron-label><span>CBD Rating</span><paper-slider id="cbdValue" pin value="[[cbdValue()]]" class="form-item" editable secondary-progress="10.0" step="0.1" max="30.0"></paper-slider></iron-label>
-                  </div>
-                </div>
-
-                <!-- Terpenes -->
-                <div class="test-result-terpenes">
-                  <paper-checkbox id="terpenePinene" checked="[[hasTerpene('pinene')]]" class="form-item terpene-result terpene-pinene" noink name="terpenePinene">Pinene</paper-checkbox>
-                  <paper-checkbox id="terpeneMyrcene" checked="[[hasTerpene('myrcene')]]" class="form-item terpene-result terpene-myrcene" noink name="terpeneMyrcene">Myrcene</paper-checkbox>
-                  <paper-checkbox id="terpeneLimonene" checked="[[hasTerpene('limonene')]]" class="form-item terpene-result terpene-limonene" noink name="terpeneLimonene">Limonene</paper-checkbox>
-                  <paper-checkbox id="terpeneCaryophyllene" checked="[[hasTerpene('caryophyllene')]]" class="form-item terpene-result terpene-caryophyllene" noink name="terpeneCaryophyllene">Carophyllene</paper-checkbox>
-                  <paper-checkbox id="terpeneLinalool" checked="[[hasTerpene('linalool')]]" class="form-item terpene-result terpene-linalool" noink name="terpeneLinalool">Linalool</paper-checkbox>
-                </div><!-- end .test-result-terpenes -->
+                <bloombox-testing
+                  zerostate
+                  mode="rich"
+                  thc="{{tests.thc}}"
+                  cbd="{{tests.cbd}}"
+                  pinene="{{tests.terpenes.pinene}}"
+                  myrcene="{{tests.terpenes.myrcene}}"
+                  limonene="{{tests.terpenes.limonene}}"
+                  linalool="{{tests.terpenes.linalool}}"
+                  caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
               </template>
             </div><!-- end .row.test-results -->
 
