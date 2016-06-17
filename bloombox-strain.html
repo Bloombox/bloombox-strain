@@ -476,7 +476,10 @@
           pictures: {
             type: Array,
             notify: true,
-            reflectToAttribute: true
+            reflectToAttribute: true,
+            value: function() {
+              return [];
+            }
           },
 
           tests: {
@@ -721,8 +724,20 @@
           this.set("zerostate", true);
         },
 
-        handleAssetAttach: function(payload) {
-          console.log("Asset attach:", payload);
+        handleAssetAttach: function(event) {
+          var that = this;
+          console.log("Attaching asset:", event);
+          bloom.app.attachAsset(event.target, function (uuid, error) {
+            // handle edit success/fail
+            if (error) {
+              console.error("Failed to upload media for item: ", this, error);
+              alert('Failed to attach image.');
+            } else {
+              console.log("Media item uploaded successfully.", uuid);
+              that.pictures.push(uuid);
+              event.target.adoptNewAsset();
+            }
+          });
         },
 
         commitEdits: function(callback) {
