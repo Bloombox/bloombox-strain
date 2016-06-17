@@ -231,13 +231,28 @@
             <!-- Stock Flags -->
             <div class="stock-flags strain-info test-info row">
               <!-- MPMH -->
-              <template is="dom-if" if="{{premium}}">
+              <template is="dom-if" if="[[premium]]">
                 <iron-label class="premium-label"><span>[[renderPremiumLabel(partner)]]</span></iron-label>
               </template>
 
               <!-- Sale -->
-              <template is="dom-if" if="{{sale}}">
-                <iron-label class="sale-label"><span>{{sale}}% OFF</span></iron-label>
+              <template is="dom-if" if="[[sale]]">
+                <iron-label class="sale-label"><span>[[sale]]% OFF</span></iron-label>
+              </template>
+
+              <!-- Buy-One-Get-One -->
+              <template is="dom-if" if="[[bogo]]">
+                <iron-label class="bogo-label"><span>Buy One Get One</span></iron-label>
+              </template>
+
+              <!-- Organic -->
+              <template is="dom-if" if="[[organic]]">
+                <iron-label class="organic-label"><span>Organic</span></iron-label>
+              </template>
+
+              <!-- Vegan -->
+              <template is="dom-if" if="[[vegan]]">
+                <iron-label class="vegan-label"><span>Vegan</span></iron-label>
               </template>
 
               <!-- Grow -->
@@ -349,8 +364,28 @@
             <!-- Pricing/Sale Flags -->
             <div class="stock-flags row">
               <div class="row-label">
-                <span class="row-label-value">Pricing</span>
+                <span class="row-label-value">Inventory</span>
               </div><!-- end div.row-label -->
+
+              <div class="in-stock-toggle-option">
+                <paper-checkbox id="showToggle" checked="[[isVisible()]]" class="form-item show-item-toggle" noink>Show on Menu</paper-checkbox>
+              </div><!-- end .in-stock-toggle-option -->
+
+              <div class="bogo-toggle-option">
+                <paper-checkbox id="bogoToggle" checked="[[isBogo()]]" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+              </div><!-- end .bogo-toggle-option -->
+
+              <div class="vegan-toggle-option">
+                <paper-checkbox id="showToggle" checked="[[isVegan()]]" class="form-item item-vegan-toggle" noink>Vegan</paper-checkbox>
+              </div><!-- end .vegan-toggle-option -->
+
+              <div class="organic-toggle-option">
+                <paper-checkbox id="showToggle" checked="[[isOrganic()]]" class="form-item item-organic-toggle" noink>Organic</paper-checkbox>
+              </div><!-- end .organic-toggle-option -->
+
+              <div class="gluten-free-toggle-option">
+                <paper-checkbox id="glutenFreeToggle" checked="[[isGlutenFree()]]" class="form-item item-gluten-free-toggle" noink>Gluten Free</paper-checkbox>
+              </div><!-- end .gluten-free-toggle-option -->
 
               <div class="premium-toggle-option">
                 <paper-checkbox id="premiumToggle" checked="[[isPremium()]]" class="form-item premium-toggle" noink>[[renderPremiumLabel(partner)]]</paper-checkbox>
@@ -516,6 +551,41 @@
             reflectToAttribute: true
           },
 
+          bogo: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true,
+            value: false
+          },
+
+          visible: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true,
+            value: true
+          },
+
+          vegan: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true,
+            value: false
+          },
+
+          organic: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true,
+            value: false
+          },
+
+          glutenfree: {
+            type: Boolean,
+            notify: true,
+            reflectToAttribute: true,
+            value: false
+          },
+
           premium: {
             type: Boolean,
             notify: true,
@@ -550,6 +620,41 @@
         isPremium: function() {
           if (this.premium !== undefined && this.premium !== null) {
             return this.premium;
+          }
+          return false;
+        },
+
+        isVisible: function() {
+          if (this.visible !== undefined && this.visible !== null) {
+            return this.visible;
+          }
+          return true;
+        },
+
+        isBogo: function() {
+          if (this.bogo !== undefined && this.bogo !== null) {
+            return this.bogo;
+          }
+          return false;
+        },
+
+        isVegan: function() {
+          if (this.vegan !== undefined && this.vegan !== null) {
+            return this.vegan;
+          }
+          return false;
+        },
+
+        isOrganic: function() {
+          if (this.organic !== undefined && this.organic !== null) {
+            return this.organic;
+          }
+          return false;
+        },
+
+        isGlutenFree: function() {
+          if (this.glutenfree !== undefined && this.glutenfree !== null) {
+            return this.glutenfree;
           }
           return false;
         },
@@ -772,8 +877,34 @@
           payload.pricelist = pricelist;
 
           // handle optional fields
-          if (this.$$("#premiumToggle").checked) payload.premium = true;
-          if (this.$$("#saleToggle").checked) payload.sale = this.$$("#saleValue").value;
+          if (this.$$("#premiumToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.premium = true;
+          }
+          if (this.$$("#showToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.visible = true;
+          }
+          if (this.$$("#bogoToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.bogo = true;
+          }
+          if (this.$$("#veganToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.vegan = true;
+          }
+          if (this.$$("#organicToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.organic = true;
+          }
+          if (this.$$("#glutenFreeToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.glutenfree = true;
+          }
+          if (this.$$("#saleToggle").checked) {
+            payload.flags = payload.flags || {};
+            payload.flags.sale = this.$$("#saleValue").value;
+          }
           if (this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0)
             payload.description = this.$$("#descriptionField").value;
           return payload;
