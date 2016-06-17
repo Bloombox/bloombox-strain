@@ -69,8 +69,6 @@
 
       :host .strain-data-content .row iron-label {
         padding: 5px;
-        margin-left: 10px;
-        margin-right: 10px;
         border-radius: 3px;
         background: purple;
         color: white;
@@ -383,18 +381,20 @@
               </div><!-- end div.row-label -->
 
               <paper-checkbox id="testsToggle" checked="[[knownTestResults()]]" on-tap="toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
-              <template is="dom-if" if="{{tests}}">
-                <bloombox-testing
-                  zerostate
-                  mode="rich"
-                  thc="{{tests.thc}}"
-                  cbd="{{tests.cbd}}"
-                  pinene="{{tests.terpenes.pinene}}"
-                  myrcene="{{tests.terpenes.myrcene}}"
-                  limonene="{{tests.terpenes.limonene}}"
-                  linalool="{{tests.terpenes.linalool}}"
-                  caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
-              </template>
+              <div class="test-results-container">
+                <template is="dom-if" if="{{tests}}">
+                  <bloombox-testing
+                    zerostate
+                    mode="rich"
+                    thc="{{tests.thc}}"
+                    cbd="{{tests.cbd}}"
+                    pinene="{{tests.terpenes.pinene}}"
+                    myrcene="{{tests.terpenes.myrcene}}"
+                    limonene="{{tests.terpenes.limonene}}"
+                    linalool="{{tests.terpenes.linalool}}"
+                    caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
+                </template>
+              </div><!-- end .test-results-container -->
             </div><!-- end .row.test-results -->
 
             <!-- Test Results -->
