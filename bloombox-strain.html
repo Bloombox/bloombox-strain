@@ -725,7 +725,7 @@
           console.log("Asset attach:", payload);
         },
 
-        commitEdits: function() {
+        commitEdits: function(callback) {
           var previous = this.readObjectData(),
               serialized = this.readZeroStateForm()
               that = this;
@@ -737,6 +737,8 @@
               alert('Failed to apply edits.');
             } else {
               console.log("Edits applied successfully.");
+              if (callback !== undefined)
+                callback();
               that.set("editing", false);
               that.set("zerostate", false);
             }
