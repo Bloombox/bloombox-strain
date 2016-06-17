@@ -231,29 +231,19 @@
             <!-- Stock Flags -->
             <div class="stock-flags strain-info test-info row">
               <!-- MPMH -->
-              <template is="dom-if" if="[[premium]]">
-                <iron-label class="premium-label"><span>[[renderPremiumLabel(partner)]]</span></iron-label>
-              </template>
+              <iron-label class="premium-label" hidden$="[[!premium]]"><span>[[renderPremiumLabel(partner)]]</span></iron-label>
 
               <!-- Sale -->
-              <template is="dom-if" if="[[sale]]">
-                <iron-label class="sale-label"><span>[[sale]]% OFF</span></iron-label>
-              </template>
+              <iron-label class="sale-label" hidden$="[[!sale]]"><span>[[sale]]% OFF</span></iron-label>
 
               <!-- Buy-One-Get-One -->
-              <template is="dom-if" if="[[bogo]]">
-                <iron-label class="bogo-label"><span>Buy One Get One</span></iron-label>
-              </template>
+              <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
 
               <!-- Organic -->
-              <template is="dom-if" if="[[organic]]">
-                <iron-label class="organic-label"><span>Organic</span></iron-label>
-              </template>
+              <iron-label class="organic-label" hidden$="[[!organic]]"><span>Organic</span></iron-label>
 
               <!-- Vegan -->
-              <template is="dom-if" if="[[vegan]]">
-                <iron-label class="vegan-label"><span>Vegan</span></iron-label>
-              </template>
+              <iron-label class="vegan-label" hidden$="[[!vegan]]"><span>Vegan</span></iron-label>
 
               <!-- Grow -->
               <iron-label class="grow-label"><span class="{{lowercase(grow)}}-label">{{grow}}</span></iron-label>
@@ -269,25 +259,11 @@
 
                 <div class="terpene-results">
                   <!-- Terpene Profile -->
-                  <template is="dom-if" if="{{tests.terpenes.pinene}}">
-                    <iron-label class="terpene-label pinene-label"><span>PNE</span></iron-label>
-                  </template>
-
-                  <template is="dom-if" if="{{tests.terpenes.myrcene}}">
-                    <iron-label class="terpene-label myrcene-label"><span>MYR</span></iron-label>
-                  </template>
-
-                  <template is="dom-if" if="{{tests.terpenes.limonene}}">
-                    <iron-label class="terpene-label limonene-label"><span>LMN</span></iron-label>
-                  </template>
-
-                  <template is="dom-if" if="{{tests.terpenes.caryophyllene}}">
-                    <iron-label class="terpene-label caryophyllene-label"><span>CRY</span></iron-label>
-                  </template>
-
-                  <template is="dom-if" if="{{tests.terpenes.linalool}}">
-                    <iron-label class="terpene-label linalool-label"><span>LIN</span></iron-label>
-                  </template>
+                  <iron-label class="terpene-label pinene-label" hidden$="{{!tests.terpenes.pinene}}"><span>PNE</span></iron-label>
+                  <iron-label class="terpene-label myrcene-label" hidden$="{{!tests.terpenes.myrcene}}"><span>MYR</span></iron-label>
+                  <iron-label class="terpene-label limonene-label" hidden$="{{!tests.terpenes.limonene}}"><span>LMN</span></iron-label>
+                  <iron-label class="terpene-label caryophyllene-label" hidden$="{{!tests.terpenes.caryophyllene}}"><span>CRY</span></iron-label>
+                  <iron-label class="terpene-label linalool-label" hidden$="{{!tests.terpenes.linalool}}"><span>LIN</span></iron-label>
                 </div><!-- end div.terpene-results -->
               </template>
             </div><!-- end div.row.stock-flags -->
