@@ -1,6 +1,6 @@
 {
   "name": "bloombox-strain",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Provides UI to create and manage strains of cannabis flowers",
   "private": true,
   "authors": [
@@ -34,7 +34,9 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.2.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
-    "bloombox-pricelist": "Bloombox/bloombox-pricelist#^0.0.2"
+    "bloombox-pricelist": "Bloombox/bloombox-pricelist#^0.0.2",
+    "bloombox-testing": "Bloombox/bloombox-testing#^0.0.1",
+    "bloombox-media": "Bloombox/bloombox-media#^0.0.3"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
@@ -42,7 +44,6 @@
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
     "bloombox-styles": "Bloombox/bloombox-styles#^0.0.2",
-    "bloombox-media": "Bloombox/bloombox-media#^0.0.2",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
