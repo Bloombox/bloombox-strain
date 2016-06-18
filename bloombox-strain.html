@@ -209,21 +209,37 @@
       :host .test-result-terpenes paper-checkbox {
         margin-left: 15px;
       }
+
+      :host .not-in-stock {
+        opacity: 0.3;
+      }
+
+      :host .not-in-stock:before {
+        content: '(Not in stock)';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        font-size: 180%;
+        font-style: italic;
+        top: 40%;
+      }
     </style>
 
     <div class="strain-wrapper">
       <!-- - - - - - - - - - - -->
       <!--   Sealed  Content   -->
       <!-- - - - - - - - - - - -->
-      <template is="dom-if" if="{{!zerostate}}">
-        <paper-card heading="{{name}}" class="fullwidth">
+      <template is="dom-if" if="[[!zerostate]]">
+        <paper-card heading="[[name]]" class="fullwidth">
           <div class="strain-data-content card-content">
             <!-- Strain Description -->
             <div class="row description-container">
-              <template is="dom-if" if="{{description}}">
-                <div class="strain-description">{{description}}</div>
+              <template is="dom-if" if="[[description]]">
+                <div class="strain-description">[[description]]</div>
               </template>
-              <template is="dom-if" if="{{!hasDescription()}}">
+              <template is="dom-if" if="[[!hasDescription()]]">
                 <div class="strain-no-description">(No description)</div>
               </template>
             </div><!-- end div.row.description-container -->
@@ -266,7 +282,7 @@
 
             <!-- Price List -->
             <div class="row pricelist">
-              <bloombox-pricelist class="strainSealedPricelist" manifest="{{pricelist}}" currency="$"></bloombox-pricelist>
+              <bloombox-pricelist class="strainSealedPricelist" manifest="[[pricelist]]" currency="$"></bloombox-pricelist>
             </div><!-- end div.row.pricelist -->
           </div>
           <div class="card-actions">
@@ -279,7 +295,7 @@
       <!-- - - - - - - - - - - -->
       <!-- Zero-State  Content -->
       <!-- - - - - - - - - - - -->
-      <template is="dom-if" if="{{zerostate}}">
+      <template is="dom-if" if="[[zerostate]]">
         <paper-card class="fullwidth">
           <div class="form-wrap zero-state-form card-content">
             <div class="basic-info row">
@@ -523,7 +539,8 @@
             type: Boolean,
             notify: true,
             reflectToAttribute: true,
-            value: true
+            value: true,
+            observer: '_observeVisible'
           },
 
           premium: {
@@ -548,6 +565,13 @@
           if (Array.isArray(pictures) && pictures.length > 0)
             return pictures[0];
           return null;
+        },
+
+        _observeVisible: function(visible) {
+          var contentEl = this.$$("div.strain-data-content.card-content");
+          if (visible !== true && contentEl && !contentEl.classList.contains("not-in-stock"))
+            contentEl.classList.add("not-in-stock");
+          return "in-stock";
         },
 
         lowercase: function(item) {
