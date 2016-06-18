@@ -568,8 +568,7 @@
 
         ready: function() {
           // need to re-call this to make sure the class gets initially applied
-          var visible = this.get("visible") || true;
-          this._observeVisible(visible);
+          this._observeVisible(this.get("visible"));
         },
 
         _computeImage: function(pictures) {
