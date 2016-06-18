@@ -509,7 +509,10 @@
           pricelist: {
             type: Object,
             notify: true,
-            reflectToAttribute: true
+            reflectToAttribute: true,
+            value: function() {
+              return [{"label": "1g", "available": true, "price": 0}, {"label": "3.5g", "available": true, "price": 0}, {"label": "7g", "available": true, "price": 0}, {"label": "14g", "available": true, "price": 0}, {"label": "28g", "available": true, "price": 0}];
+            }
           },
 
           sale: {
