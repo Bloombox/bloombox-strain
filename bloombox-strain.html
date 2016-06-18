@@ -384,6 +384,7 @@
               <div class="test-results-container">
                 <template is="dom-if" if="{{tests}}">
                   <bloombox-testing
+                    id="productTesting"
                     zerostate
                     mode="rich"
                     thc="{{tests.thc}}"
@@ -778,10 +779,11 @@
           var payload = {};
 
           // handle required fields
-          payload.__firebaseKey__
+          payload.__firebaseKey__ = this.get("key");
           payload.name = this.get("name");
           payload.grow = this.get("grow");
           payload.species = this.get("species");
+          payload.pictures = this.get("pictures");
 
           // handle ancestry
           if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
@@ -806,11 +808,35 @@
             };
           }
 
-          // @TODO: read price from form
-
           // handle optional fields
-          if (this.get("premium") == true) payload.premium = true;
-          if (this.get("sale") !== undefined && this.get("sale") != null) payload.sale = this.get("sale");
+          if (this.get("premium") == true) {
+            payload.flags = payload.flags || {};
+            payload.flags.premium = true;
+          }
+          if (this.get("sale") !== undefined && this.get("sale") != null) {
+            payload.flags = payload.flags || {};
+            payload.flags.sale = this.get("sale");
+          }
+          if (this.get("visible") != null && this.get("visible") != undefined) {
+            payload.flags = payload.flags || {};
+            payload.flags.visible = this.get("visible");
+          }
+          if (this.get("bogo") != null && this.get("bogo") != undefined) {
+            payload.flags = payload.flags || {};
+            payload.flags.bogo = this.get("bogo");
+          }
+          if (this.get("vegan") != null && this.get("vegan") != undefined) {
+            payload.flags = payload.flags || {};
+            payload.flags.vegan = this.get("vegan");
+          }
+          if (this.get("organic") != null && this.get("organic") != undefined) {
+            payload.flags = payload.flags || {};
+            payload.flags.organic = this.get("organic");
+          }
+          if (this.get("glutenfree") != null && this.get("glutenfree") != undefined) {
+            payload.flags = payload.flags || {};
+            payload.flags.glutenfree = this.get("glutenfree");
+          }
           if (this.get("description") !== undefined && this.get("description") !== null &&
               this.get("description").length > 0) payload.description = this.get("description");
           return payload;
@@ -820,12 +846,15 @@
           var payload = {},
               manifest = this.$$(".strainEditablePricelist").readManifest(this),
               pricelist = {},
-              mi, mpayload;
+              mi, mpayload, testing;
 
           // handle required fields
           payload.name = this.$$("#nameField").value;
           payload.grow = this.$$("#growField").value;
           payload.species = this.$$("#speciesField").value;
+
+          if (this.get("photos") && this.get("photos").length > 0)
+            payload.photos = this.get("photos");
 
           // handle ancestry
           if (this.$$("#ancestryToggle").checked) {
@@ -837,15 +866,16 @@
 
           // handle test results
           if (this.$$("#testsToggle").checked) {
+            testing = this.$$("#productTesting");
             payload.tests = {
-              thc: this.$$("#thcValue").value,
-              cbd: this.$$("#cbdValue").value,
+              thc: testing.thc,
+              cbd: testing.cbd,
               terpenes: {
-                pinene: this.$$("#terpenePinene").checked,
-                myrcene: this.$$("#terpeneMyrcene").checked,
-                limonene: this.$$("#terpeneLimonene").checked,
-                caryophyllene: this.$$("#terpeneCaryophyllene").checked,
-                linalool: this.$$("#terpeneLinalool").checked
+                pinene: testing.pinene,
+                myrcene: testing.myrcene,
+                limonene: testing.limonene,
+                caryophyllene: testing.caryophyllene,
+                linalool: testing.linalool
               }
             };
           }
