@@ -585,8 +585,11 @@
             contentEl.classList.remove("in-stock");
             return;
           }
-          contentEl.classList.add("in-stock");
-          contentEl.classList.remove("not-in-stock");
+
+          if (contentEl) {
+            contentEl.classList.add("in-stock");
+            contentEl.classList.remove("not-in-stock");
+          }
         },
 
         lowercase: function(item) {
