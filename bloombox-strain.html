@@ -611,7 +611,7 @@
         },
 
         imageValue: function() {
-          var pictures = this.get("pictures");
+          var pictures = this.get("pictures") || [];
           if (Array.isArray(pictures) && pictures.length > 0)
             return pictures[0];
           return false;
@@ -679,7 +679,7 @@
               alert('Failed to attach image.');
             } else {
               console.log("Media item uploaded successfully.", uuid);
-              that.pictures.push(uuid);
+              that.set("pictures", [uuid]);
               event.target.adoptNewAsset();
             }
           });
@@ -723,7 +723,7 @@
           payload.name = this.get("name");
           payload.grow = this.get("grow");
           payload.species = this.get("species");
-          payload.pictures = this.get("pictures");
+          payload.pictures = this.get("pictures") || [];
 
           // handle ancestry
           if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
