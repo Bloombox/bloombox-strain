@@ -36,7 +36,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
     "bloombox-pricelist": "Bloombox/bloombox-pricelist#^0.0.2",
     "bloombox-testing": "Bloombox/bloombox-testing#^0.0.1",
-    "bloombox-media": "Bloombox/bloombox-media#^0.0.3"
+    "bloombox-media": "Bloombox/bloombox-media#master"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
