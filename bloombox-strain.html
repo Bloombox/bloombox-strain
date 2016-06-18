@@ -566,6 +566,12 @@
           }
         },
 
+        ready: function() {
+          // need to re-call this to make sure the class gets initially applied
+          var visible = this.get("visible") || true;
+          this._observeVisible(visible);
+        },
+
         _computeImage: function(pictures) {
           if (Array.isArray(pictures) && pictures.length > 0)
             return pictures[0];
@@ -574,9 +580,13 @@
 
         _observeVisible: function(visible) {
           var contentEl = this.$$("div.strain-data-content.card-content");
-          if (visible !== true && contentEl && !contentEl.classList.contains("not-in-stock"))
+          if (visible !== true && contentEl && !contentEl.classList.contains("not-in-stock")) {
             contentEl.classList.add("not-in-stock");
-          return "in-stock";
+            contentEl.classList.remove("in-stock");
+            return;
+          }
+          contentEl.classList.add("in-stock");
+          contentEl.classList.remove("not-in-stock");
         },
 
         lowercase: function(item) {
