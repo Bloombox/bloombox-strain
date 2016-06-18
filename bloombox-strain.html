@@ -697,7 +697,7 @@
               alert('Failed to apply edits.');
             } else {
               console.log("Edits applied successfully.");
-              if (callback !== undefined)
+              if (callback !== undefined && typeof callback === "function")
                 callback();
               that.set("editing", false);
               that.set("zerostate", false);
