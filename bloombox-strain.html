@@ -338,24 +338,8 @@
               </div><!-- end div.row-label -->
 
               <div class="in-stock-toggle-option">
-                <paper-checkbox id="showToggle" checked="[[isVisible()]]" class="form-item show-item-toggle" noink>Show on Menu</paper-checkbox>
+                <paper-checkbox id="showToggle" checked="[[isVisible()]]" class="form-item show-item-toggle" noink>In Stock</paper-checkbox>
               </div><!-- end .in-stock-toggle-option -->
-
-              <div class="bogo-toggle-option">
-                <paper-checkbox id="bogoToggle" checked="[[isBogo()]]" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
-              </div><!-- end .bogo-toggle-option -->
-
-              <div class="vegan-toggle-option">
-                <paper-checkbox id="showToggle" checked="[[isVegan()]]" class="form-item item-vegan-toggle" noink>Vegan</paper-checkbox>
-              </div><!-- end .vegan-toggle-option -->
-
-              <div class="organic-toggle-option">
-                <paper-checkbox id="showToggle" checked="[[isOrganic()]]" class="form-item item-organic-toggle" noink>Organic</paper-checkbox>
-              </div><!-- end .organic-toggle-option -->
-
-              <div class="gluten-free-toggle-option">
-                <paper-checkbox id="glutenFreeToggle" checked="[[isGlutenFree()]]" class="form-item item-gluten-free-toggle" noink>Gluten Free</paper-checkbox>
-              </div><!-- end .gluten-free-toggle-option -->
 
               <div class="premium-toggle-option">
                 <paper-checkbox id="premiumToggle" checked="[[isPremium()]]" class="form-item premium-toggle" noink>[[renderPremiumLabel(partner)]]</paper-checkbox>
@@ -372,6 +356,22 @@
                   <div class="sale-percentage-label">% off</div>
                 </template>
               </div><!-- end .sale-toggle-option -->
+
+              <div class="bogo-toggle-option">
+                <paper-checkbox id="bogoToggle" checked="[[isBogo()]]" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+              </div><!-- end .bogo-toggle-option -->
+
+              <div class="vegan-toggle-option">
+                <paper-checkbox id="veganToggle" checked="[[isVegan()]]" class="form-item item-vegan-toggle" noink>Vegan</paper-checkbox>
+              </div><!-- end .vegan-toggle-option -->
+
+              <div class="organic-toggle-option">
+                <paper-checkbox id="organicToggle" checked="[[isOrganic()]]" class="form-item item-organic-toggle" noink>Organic</paper-checkbox>
+              </div><!-- end .organic-toggle-option -->
+
+              <div class="gluten-free-toggle-option">
+                <paper-checkbox id="glutenFreeToggle" checked="[[isGlutenFree()]]" class="form-item item-gluten-free-toggle" noink>Gluten Free</paper-checkbox>
+              </div><!-- end .gluten-free-toggle-option -->
             </div><!-- end .row.stock-flags -->
             
             <!-- Test Results -->
