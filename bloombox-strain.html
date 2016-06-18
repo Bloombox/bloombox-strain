@@ -78,7 +78,8 @@
         background: #a2ae50;
       }
 
-      :host .strain-data-content .row iron-label.sale-label {
+      :host .strain-data-content .row iron-label.sale-label,
+      :host .strain-data-content .row iron-label.bogo-label {
         background: red;
         color: white;
       }
@@ -238,12 +239,6 @@
               <!-- Buy-One-Get-One -->
               <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
 
-              <!-- Organic -->
-              <iron-label class="organic-label" hidden$="[[!organic]]"><span>Organic</span></iron-label>
-
-              <!-- Vegan -->
-              <iron-label class="vegan-label" hidden$="[[!vegan]]"><span>Vegan</span></iron-label>
-
               <!-- Grow -->
               <iron-label class="grow-label"><span class="[[lowercase(grow)]]-label">[[grow]]</span></iron-label>
 
@@ -360,18 +355,6 @@
               <div class="bogo-toggle-option">
                 <paper-checkbox id="bogoToggle" checked="[[isBogo()]]" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
               </div><!-- end .bogo-toggle-option -->
-
-              <div class="vegan-toggle-option">
-                <paper-checkbox id="veganToggle" checked="[[isVegan()]]" class="form-item item-vegan-toggle" noink>Vegan</paper-checkbox>
-              </div><!-- end .vegan-toggle-option -->
-
-              <div class="organic-toggle-option">
-                <paper-checkbox id="organicToggle" checked="[[isOrganic()]]" class="form-item item-organic-toggle" noink>Organic</paper-checkbox>
-              </div><!-- end .organic-toggle-option -->
-
-              <div class="gluten-free-toggle-option">
-                <paper-checkbox id="glutenFreeToggle" checked="[[isGlutenFree()]]" class="form-item item-gluten-free-toggle" noink>Gluten Free</paper-checkbox>
-              </div><!-- end .gluten-free-toggle-option -->
             </div><!-- end .row.stock-flags -->
             
             <!-- Test Results -->
@@ -536,27 +519,6 @@
             value: true
           },
 
-          vegan: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true,
-            value: false
-          },
-
-          organic: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true,
-            value: false
-          },
-
-          glutenfree: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true,
-            value: false
-          },
-
           premium: {
             type: Boolean,
             notify: true,
@@ -605,27 +567,6 @@
         isBogo: function() {
           if (this.bogo !== undefined && this.bogo !== null) {
             return this.bogo;
-          }
-          return false;
-        },
-
-        isVegan: function() {
-          if (this.vegan !== undefined && this.vegan !== null) {
-            return this.vegan;
-          }
-          return false;
-        },
-
-        isOrganic: function() {
-          if (this.organic !== undefined && this.organic !== null) {
-            return this.organic;
-          }
-          return false;
-        },
-
-        isGlutenFree: function() {
-          if (this.glutenfree !== undefined && this.glutenfree !== null) {
-            return this.glutenfree;
           }
           return false;
         },
@@ -825,18 +766,6 @@
             payload.flags = payload.flags || {};
             payload.flags.bogo = this.get("bogo");
           }
-          if (this.get("vegan") != null && this.get("vegan") != undefined) {
-            payload.flags = payload.flags || {};
-            payload.flags.vegan = this.get("vegan");
-          }
-          if (this.get("organic") != null && this.get("organic") != undefined) {
-            payload.flags = payload.flags || {};
-            payload.flags.organic = this.get("organic");
-          }
-          if (this.get("glutenfree") != null && this.get("glutenfree") != undefined) {
-            payload.flags = payload.flags || {};
-            payload.flags.glutenfree = this.get("glutenfree");
-          }
           if (this.get("description") !== undefined && this.get("description") !== null &&
               this.get("description").length > 0) payload.description = this.get("description");
           return payload;
@@ -902,18 +831,6 @@
           if (this.$$("#bogoToggle").checked) {
             payload.flags = payload.flags || {};
             payload.flags.bogo = true;
-          }
-          if (this.$$("#veganToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.vegan = true;
-          }
-          if (this.$$("#organicToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.organic = true;
-          }
-          if (this.$$("#glutenFreeToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.glutenfree = true;
           }
           if (this.$$("#saleToggle").checked) {
             payload.flags = payload.flags || {};
