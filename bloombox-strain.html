@@ -257,7 +257,7 @@
                 caryophyllene="[[tests.terpenes.caryophyllene]]"></bloombox-testing>
             </div><!-- end div.row.stock-flags -->
 
-            <!-- Test Results -->
+            <!-- Product Media -->
             <div class="flower-media row">
               <div class="bloombox-media-wrap">
                 <bloombox-media disabled partner="[[partner]]" asset$="[[imageValue()]]"></bloombox-media>
@@ -611,9 +611,9 @@
         },
 
         imageValue: function() {
-          var image = this.get("image");
-          if (image !== null && image !== undefined)
-            return image;
+          var pictures = this.get("pictures");
+          if (Array.isArray(pictures) && pictures.length > 0)
+            return image[0];
           return false;
         },
 
