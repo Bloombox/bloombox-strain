@@ -260,7 +260,7 @@
             <!-- Product Media -->
             <div class="flower-media row">
               <div class="bloombox-media-wrap">
-                <bloombox-media disabled partner="[[partner]]" asset$="[[imageValue()]]"></bloombox-media>
+                <bloombox-media disabled partner="[[partner]]" asset="[[_image]]"></bloombox-media>
               </div><!-- end div.bloombox-media-wrap -->
             </div><!-- end .row.test-results -->
 
@@ -384,7 +384,7 @@
             <!-- Test Results -->
             <div class="flower-media row">
               <div class="bloombox-media-wrap">
-                <bloombox-media partner="[[partner]]" asset$="[[imageValue()]]" on-asset-ready="handleAssetAttach"></bloombox-media>
+                <bloombox-media partner="[[partner]]" asset="[[_image]]" on-asset-ready="handleAssetAttach"></bloombox-media>
               </div><!-- end div.bloombox-media-wrap -->
             </div><!-- end .row.test-results -->
 
@@ -416,6 +416,13 @@
       Polymer.BloomboxStrain = Polymer({
         is: 'bloombox-strain',
         properties: {
+          // -- internals
+          _image: {
+            type: String,
+            notify: true,
+            computed: '_computeImage(pictures)'
+          },
+
           // -- UI state
           locations: {
             type: Object,
@@ -537,6 +544,12 @@
           }
         },
 
+        _computeImage: function(pictures) {
+          if (Array.isArray(pictures) && pictures.length > 0)
+            return pictures[0];
+          return null;
+        },
+
         lowercase: function(item) {
           return item.toLowerCase();
         },
@@ -608,13 +621,6 @@
           if (grow.indexOf("indoor") != -1) { return "0"; }
           if (grow.indexOf("greenhouse") != -1) { return "1"; }
           if (grow.indexOf("outdoor") != -1) { return "2"; }
-        },
-
-        imageValue: function() {
-          var pictures = this.get("pictures") || [];
-          if (Array.isArray(pictures) && pictures.length > 0)
-            return pictures[0];
-          return false;
         },
 
         selectedSpecies: function() {
