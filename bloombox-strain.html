@@ -214,6 +214,18 @@
         opacity: 0.3;
       }
 
+      :host .strain-overlay {
+        opacity: 0.9;
+        background: #ddd;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        position: absolute;
+        cursor: default;
+        z-index: 1000;
+      }
+
       :host .not-in-stock:before {
         content: '(Not in stock)';
         position: absolute;
@@ -289,7 +301,10 @@
             <div class="row pricelist">
               <bloombox-pricelist class="strainSealedPricelist" manifest="[[pricelist]]" currency="$"></bloombox-pricelist>
             </div><!-- end div.row.pricelist -->
-          </div>
+            <template is="dom-if" if="[[!visible]]">
+              <div class="strain-overlay not-in-stock"></div><!-- end div.strain-overlay.not-in-stock -->
+            </template>
+          </div><!-- end div.strain-data-content.card-content -->
           <div class="card-actions">
             <paper-button on-tap="toggleEditing"><iron-icon icon="create"></iron-icon>Edit</paper-button>
             <paper-button on-tap="triggerDelete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
@@ -544,8 +559,7 @@
             type: Boolean,
             notify: true,
             reflectToAttribute: true,
-            value: true,
-            observer: '_observeVisible'
+            value: true
           },
 
           premium: {
@@ -566,29 +580,10 @@
           }
         },
 
-        attached: function() {
-          // need to re-call this to make sure the class gets initially applied
-          this._observeVisible(this.get("visible"));
-        },
-
         _computeImage: function(pictures) {
           if (Array.isArray(pictures) && pictures.length > 0)
             return pictures[0];
           return null;
-        },
-
-        _observeVisible: function(visible) {
-          var contentEl = this.$$("div.strain-data-content.card-content");
-          if (visible !== true && contentEl && !contentEl.classList.contains("not-in-stock")) {
-            contentEl.classList.add("not-in-stock");
-            contentEl.classList.remove("in-stock");
-            return;
-          }
-
-          if (contentEl) {
-            contentEl.classList.add("in-stock");
-            contentEl.classList.remove("not-in-stock");
-          }
         },
 
         lowercase: function(item) {
