@@ -248,7 +248,7 @@
       <!--   Sealed  Content   -->
       <!-- - - - - - - - - - - -->
       <template is="dom-if" if="[[!zerostate]]">
-        <paper-card heading="[[name]]" class="fullwidth">
+        <paper-card heading="[[name]]" class="flower-product fullwidth">
           <div class="strain-data-content card-content">
             <!-- Strain Description -->
             <div class="row description-container">
@@ -308,14 +308,14 @@
             <paper-button on-tap="toggleEditing"><iron-icon icon="create"></iron-icon>Edit</paper-button>
             <paper-button on-tap="triggerDelete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
           </div>
-        </paper-card>
+        </paper-card><!-- end paper-card.flower-product -->
       </template>
       
       <!-- - - - - - - - - - - -->
       <!-- Zero-State  Content -->
       <!-- - - - - - - - - - - -->
       <template is="dom-if" if="[[zerostate]]">
-        <paper-card class="fullwidth">
+        <paper-card class="fullwidth flower-product">
           <div class="form-wrap zero-state-form card-content">
             <div class="basic-info row">
               <!-- Strain Name & Description -->
@@ -441,7 +441,7 @@
               <paper-button id="discardButton" on-tap="toggleAddEntry"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
             </div>
           </template>
-        </paper-card>
+        </paper-card><!-- end paper-card.flower-product -->
       </template>
     </div>
   </template>
@@ -459,9 +459,9 @@
           },
 
           // -- UI state
-          locations: {
-            type: Object,
-            value: true,
+          displayMode: {
+            type: String,
+            value: 'normal',
             notify: true,
             reflectToAttribute: true
           },
@@ -565,11 +565,6 @@
             type: Boolean,
             notify: true,
             reflectToAttribute: true
-          },
-
-          image: {
-            type: String,
-            notify: true
           },
 
           partner: {
