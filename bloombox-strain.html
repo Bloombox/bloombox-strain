@@ -36,12 +36,17 @@
       :host {
         display: block;
         margin-bottom: 20px;
-        min-width: 500px;
+      }
+
+      :host paper-card {
+        width: 650px;
       }
 
       :host .strain-no-description {
         font-style: italic;
         color: #333;
+        margin-left: 10px;
+        margin-top: 10px;
       }
 
       :host .strain-description {
@@ -62,15 +67,25 @@
         margin-top: 20px;
       }
 
+      :host .row.description-container {
+        margin-top: 0;
+      }
+
       :host .row.stock-flags {
         min-height: 60px;
         line-height: 30px;
+        margin-left: 10px;
+      }
+
+      :host .stock-flags iron-label,
+      :host .stock-flags iron-label span {
+        cursor: default;
       }
 
       :host .strain-data-content .row iron-label {
         padding: 5px;
         border-radius: 3px;
-        background: purple;
+        background: #9c27b0;
         color: white;
       }
 
@@ -80,16 +95,12 @@
 
       :host .strain-data-content .row iron-label.sale-label,
       :host .strain-data-content .row iron-label.bogo-label {
-        background: red;
+        background: #f44336;
         color: white;
       }
 
       :host .zero-state-form.form-wrap {
         padding: 1em;
-      }
-
-      :host .pricelistContainer {
-        margin-left: -8px;
       }
 
       :host .zero-state-form.form-wrap .sale-toggle-option {
@@ -241,6 +252,28 @@
         background: transparent;
         --no-tests-overlay-background: #efefef;
       }
+
+      :host .strain-data-content .row.pricelist {
+        margin-top: -10px;
+      }
+
+      :host .zero-state-form .row.pricelist {
+        text-align: center;
+      }
+
+      :host .zero-state-form .row.category-info,
+      :host .zero-state-form .row.test-results,
+      :host .zero-state-form .row.flower-media {
+        margin-left: 10px;
+      }
+
+      :host paper-card .card-content {
+        background-color: #efefef;
+      }
+
+      :host paper-card {
+        background-color: white;
+      }
     </style>
 
     <div class="strain-wrapper">
@@ -292,7 +325,7 @@
             <!-- Product Media -->
             <div class="flower-media row">
               <div class="bloombox-media-wrap">
-                <bloombox-media disabled partner="[[partner]]" asset="[[_image]]"></bloombox-media>
+                <bloombox-media disabled hidden$="[[!_image]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
               </div><!-- end div.bloombox-media-wrap -->
             </div><!-- end .row.test-results -->
 
@@ -424,9 +457,9 @@
             </div><!-- end .row.test-results -->
 
             <!-- Price List -->
-            <div class="row">
+            <div class="row pricelist">
               <bloombox-pricelist class="strainEditablePricelist" manifest='{{pricelist}}' currency="$" editable></bloombox-pricelist>
-            </div>
+            </div><!-- end .row.pricelist -->
           </div>
           <!-- Actions -->
           <template is="dom-if" if="[[editing]]">
