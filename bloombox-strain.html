@@ -39,7 +39,7 @@
       }
 
       :host paper-card {
-        width: 650px;
+        min-width: 650px;
       }
 
       :host .strain-no-description {
@@ -253,10 +253,6 @@
         --no-tests-overlay-background: #efefef;
       }
 
-      :host .strain-data-content .row.pricelist {
-        margin-top: -10px;
-      }
-
       :host .zero-state-form .row.pricelist {
         text-align: center;
       }
@@ -285,11 +281,13 @@
           <div class="strain-data-content card-content">
             <!-- Strain Description -->
             <div class="row description-container">
-              <template is="dom-if" if="[[description]]">
-                <div class="strain-description">[[description]]</div>
-              </template>
-              <template is="dom-if" if="[[!hasDescription()]]">
-                <div class="strain-no-description">(No description)</div>
+              <template is="dom-if" if="[[!_slim]]">
+                <template is="dom-if" if="[[description]]">
+                  <div class="strain-description">[[description]]</div>
+                </template>
+                <template is="dom-if" if="[[!hasDescription()]]">
+                  <div class="strain-no-description">(No description)</div>
+                </template>
               </template>
             </div><!-- end div.row.description-container -->
 
@@ -491,6 +489,12 @@
             computed: '_computeImage(pictures)'
           },
 
+          _slim: {
+            type: Boolean,
+            notify: true,
+            computed: '_computeSlimMode(displayMode)'
+          },
+
           // -- UI state
           displayMode: {
             type: String,
@@ -611,6 +615,10 @@
           if (Array.isArray(pictures) && pictures.length > 0)
             return pictures[0];
           return null;
+        },
+
+        _computeSlimMode: function(displayMode) {
+          return displayMode == "slim";
         },
 
         lowercase: function(item) {
