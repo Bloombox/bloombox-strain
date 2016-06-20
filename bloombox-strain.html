@@ -323,7 +323,7 @@
             <!-- Product Media -->
             <div class="flower-media row">
               <div class="bloombox-media-wrap">
-                <bloombox-media disabled hidden$="[[!_image]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
+                <bloombox-media disabled hidden$="[[_shouldHideImage()]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
               </div><!-- end div.bloombox-media-wrap -->
             </div><!-- end .row.test-results -->
 
@@ -619,6 +619,15 @@
 
         _computeSlimMode: function(displayMode) {
           return displayMode == "slim";
+        },
+
+        _shouldHideImage: function() {
+          // we should hide the image if:
+          // 1) we are in slimline mode
+          // 2) there is no image and we are in zero-state
+          var image = this.get("_image"),
+              slim = this.get("_slim") || false;
+          return (slim || !image);
         },
 
         lowercase: function(item) {
