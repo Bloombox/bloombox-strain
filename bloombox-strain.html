@@ -338,7 +338,7 @@
           <div class="card-actions">
             <paper-button on-tap="toggleEditing"><iron-icon icon="create"></iron-icon>Edit</paper-button>
             <paper-button on-tap="triggerDelete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
-          </div>
+          </div><!-- end div.card-actions -->
         </paper-card><!-- end paper-card.flower-product -->
       </template>
       
@@ -464,13 +464,13 @@
             <div class="strain-zerostate-actions card-actions row">
               <paper-button id="saveButton" raised on-tap="commitEdits"><iron-icon icon="save"></iron-icon>Save</paper-button>
               <paper-button id="cancelButton" on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
-            </div>
+            </div><!-- end .strain-zerostate-actions.card-actions -->
           </template>
           <template is="dom-if" if="[[!editing]]">
             <div class="strain-zerostate-actions edit-actions card-actions row">
               <paper-button id="submitButton" raised on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
               <paper-button id="discardButton" on-tap="toggleAddEntry"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
-            </div>
+            </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
           </template>
         </paper-card><!-- end paper-card.flower-product -->
       </template>
@@ -776,7 +776,7 @@
               serialized = this.readZeroStateForm()
               that = this;
           console.log("Committing edits...", previous, serialized);
-          bloom.app.saveEditsForEntry(this.get("key"), previous, serialized, function (error) {
+          bloom.app.saveEditsForEntry("flowers", this.get("key"), previous, serialized, function (error) {
             // handle edit success/fail
             if (error) {
               console.error("Failed to save edits for item: ", this, error);
@@ -799,7 +799,7 @@
 
         triggerDelete: function() {
           console.log("Deleting item...", this);
-          bloom.app.deleteEntryAtId(this.get("key"));
+          bloom.app.deleteEntryAtId("flowers", this.get("key"));
         },
 
         readObjectData: function() {
@@ -930,7 +930,7 @@
         },
 
         persist: function() {
-          bloom.app.saveNewStrain(this.readZeroStateForm());  // read the form into our object
+          bloom.app.saveNewObject("edibles", this.readZeroStateForm());  // read the form into our object
         }
       });
     })();
