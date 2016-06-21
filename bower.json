@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/bloombox/bloombox-strain.git"
+    "url": "ssh://git@github.com:bloombox/bloombox-strain.git"
   },
   "license": "Private, All Rights Reserved",
   "homepage": "https://github.com/bloombox/bloombox-strain",
@@ -34,16 +34,16 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.2.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
-    "bloombox-pricelist": "Bloombox/bloombox-pricelist#^0.0.2",
-    "bloombox-testing": "Bloombox/bloombox-testing#master",
-    "bloombox-media": "Bloombox/bloombox-media#master"
+    "bloombox-pricelist": "git@github.com:bloombox/bloombox-pricelist.git#master",
+    "bloombox-testing": "git@github.com:bloombox/bloombox-testing.git#master",
+    "bloombox-media": "git@github.com:bloombox/bloombox-media.git#master",
+    "bloombox-styles": "git@github.com:bloombox/bloombox-styles.git#master"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
-    "bloombox-styles": "Bloombox/bloombox-styles#^0.0.2",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
