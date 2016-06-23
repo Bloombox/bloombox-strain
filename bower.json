@@ -34,6 +34,7 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.2.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
+    "bloombox-product": "git@github.com:bloombox/bloombox-product.git#master",
     "bloombox-pricelist": "git@github.com:bloombox/bloombox-pricelist.git#master",
     "bloombox-testing": "git@github.com:bloombox/bloombox-testing.git#master",
     "bloombox-media": "git@github.com:bloombox/bloombox-media.git#master",
