@@ -14,6 +14,7 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-label/iron-label.html">
 
+<link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-textarea.html">
@@ -27,6 +28,7 @@
 <link rel="import" href="../bloombox-media/bloombox-media.html">
 <link rel="import" href="../bloombox-styles/bloombox-styles.html">
 <link rel="import" href="../bloombox-testing/bloombox-testing.html">
+<link rel="import" href="../bloombox-product/bloombox-product.html">
 <link rel="import" href="../bloombox-pricelist/bloombox-pricelist.html">
 
 
@@ -35,904 +37,422 @@
     <style is="custom-style" include="bloombox-styles">
       :host {
         display: block;
-        margin-bottom: 20px;
-      }
-
-      :host paper-card {
-        min-width: 650px;
-      }
-
-      :host .strain-no-description {
-        font-style: italic;
-        color: #333;
-        margin-left: 10px;
-        margin-top: 10px;
-      }
-
-      :host .strain-description {
-        margin-left: 10px;
-      }
-
-      :host .zero-state-form .strain-description {
-        margin-left: 0;
-      }
-
-      :host .strain-data-content {
-        padding: 10px;
-        padding-left: 15px;
-      }
-
-      :host .row {
-        display: block;
-        margin-top: 20px;
-      }
-
-      :host .row.description-container {
-        margin-top: 0;
-      }
-
-      :host .row.stock-flags {
-        min-height: 60px;
-        line-height: 30px;
-        margin-left: 10px;
-      }
-
-      :host .stock-flags iron-label,
-      :host .stock-flags iron-label span {
-        cursor: default;
-      }
-
-      :host .strain-data-content .row iron-label {
-        padding: 5px;
-        border-radius: 3px;
-        background: #9c27b0;
-        color: white;
-      }
-
-      :host .strain-data-content .row iron-label.premium-label {
-        background: #8bc34a;
-      }
-
-      :host .strain-data-content .row iron-label.sale-label,
-      :host .strain-data-content .row iron-label.bogo-label {
-        background: #f44336;
-        color: white;
-      }
-
-      :host .zero-state-form.form-wrap {
-        padding: 1em;
-      }
-
-      :host .zero-state-form.form-wrap .sale-toggle-option {
-        height: 56px;
-      }
-
-      :host paper-slider {
-        --paper-slider-active-color: var(--bloombox-green-primary);
-        --paper-slider-knob-color: var(--bloombox-green-primary);
-        --paper-slider-pin-color: var(--bloombox-green-primary);
-        --paper-slider-secondary-color: #333;
-      }
-
-      :host .zero-state-form.form-wrap .sale-toggle-option .sale-toggle-container {
-        display: inline-block;
-        float: left;
-        height: 56px;
-      }
-
-      :host .zero-state-form.form-wrap .sale-percentage-label {
-        height: 30px;
-        line-height: 30px;
-        display: inline-block;
-        margin-top: 5px;
-      }
-
-      :host .zero-state-form.form-wrap .sale-amount-container {
-        display: inline-block;
-        float: left;
-        margin-top: -10px;
-      }
-
-      :host .ancestry-genetics {
-        min-height: 40px;
-      }
-
-      :host .ancestry-genetics paper-checkbox {
-        margin-top: 13px;
-      }
-
-      :host .ancestry-spec {
-        display: inline-block;
-        margin-left: 10px;
-      }
-
-      :host .ancestry-spec paper-input {
-        display: inline-block;
-        max-width: 140px;
-      }
-
-      :host .ancestry-spec span.genetics-separator {
-        margin-left: 4px;
-        margin-right: 4px;
-      }
-
-      :host iron-icon {
-        margin-left: 5px;
-        margin-right: 5px;
-      }
-
-      :host paper-button {
-        --paper-button-ink-color: var(--bloombox-green-primary);
-      }
-
-      :host div.card-actions {
-        margin-left: 20px;
-      }
-
-      :host div.card-actions.strain-zerostate-actions {
-        margin-left: 0;
-      }
-
-      :host .row-label {
-        margin-top: 15px;
-        line-height: 30px;
-      }
-
-      :host .row-label .row-label-value {
-        text-transform: uppercase;
-        font-size: 8pt;
-        border-bottom: 1px solid black;
-      }
-
-      :host .test-result-ratings {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-
-      :host .test-result-rating {
-        padding: 10px;
-      }
-
-      :host .test-result-rating:not(:first-child) {
-        margin-top: -20px;
-      }
-
-      :host .test-result-rating paper-slider {
-        margin-top: -10px;
-        --paper-input-container: {
-          width: 50px;
-        }
-      }
-
-      :host .test-result-rating iron-label span {
-        margin-left: 15px;
-      }
-
-      :host .test-result-rating paper-slider /deep/ paper-input {
-        width: 100px;
-      }
-
-      :host .zero-state-form .row.flower-media {
-        margin-top: 40px;
-        margin-bottom: 40px;
-      }
-
-      :host .test-result-terpenes paper-checkbox {
-        margin-left: 15px;
-      }
-
-      :host .not-in-stock {
-        opacity: 0.3;
-      }
-
-      :host .strain-overlay {
-        opacity: 0.9;
-        background: #ddd;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        position: absolute;
-        cursor: default;
-      }
-
-      :host .not-in-stock:before {
-        content: '(Not in stock)';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        text-align: center;
-        font-size: 180%;
-        font-style: italic;
-        top: 40%;
-      }
-
-      :host .strain-data-content bloombox-testing {
-        background: transparent;
-        --no-tests-overlay-background: #efefef;
-      }
-
-      :host .zero-state-form .row.pricelist {
-        text-align: center;
-      }
-
-      :host .zero-state-form .row.category-info,
-      :host .zero-state-form .row.test-results,
-      :host .zero-state-form .row.flower-media {
-        margin-left: 10px;
-      }
-
-      :host paper-card .card-content {
-        background-color: #efefef;
-      }
-
-      :host paper-card {
-        background-color: white;
       }
     </style>
 
-    <div class="strain-wrapper">
-      <!-- - - - - - - - - - - -->
-      <!--   Sealed  Content   -->
-      <!-- - - - - - - - - - - -->
-      <template is="dom-if" if="[[!zerostate]]">
-        <paper-card heading="[[name]]" class="flower-product fullwidth">
-          <div class="strain-data-content card-content">
-            <!-- Strain Description -->
-            <div class="row description-container">
-              <template is="dom-if" if="[[!_slim]]">
-                <template is="dom-if" if="[[description]]">
-                  <div class="strain-description">[[description]]</div>
-                </template>
-                <template is="dom-if" if="[[!hasDescription()]]">
-                  <div class="strain-no-description">(No description)</div>
-                </template>
+    <!-- - - - - - - - - - - -->
+    <!--   Sealed  Content   -->
+    <!-- - - - - - - - - - - -->
+    <template is="dom-if" if="[[!zerostate]]">
+      <paper-card heading="[[name]]" class="product-card flower-product data-content fullwidth">
+        <div class="card-content">
+          <!-- Description -->
+          <div class="row description-container">
+            <template is="dom-if" if="[[!_slim]]">
+              <template is="dom-if" if="[[description]]">
+                <div class="product-description">[[description]]</div>
               </template>
-            </div><!-- end div.row.description-container -->
-
-            <!-- Stock Flags -->
-            <div class="stock-flags strain-info test-info row">
-              <!-- MPMH -->
-              <iron-label class="premium-label" hidden$="[[!premium]]"><span>[[renderPremiumLabel(partner)]]</span></iron-label>
-
-              <!-- Sale -->
-              <iron-label class="sale-label" hidden$="[[!sale]]"><span>[[sale]]% OFF</span></iron-label>
-
-              <!-- Buy-One-Get-One -->
-              <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
-
-              <!-- Grow -->
-              <iron-label class="grow-label"><span class="[[lowercase(grow)]]-label">[[grow]]</span></iron-label>
-
-              <!-- Species -->
-              <iron-label class="species-label"><span class="[[lowercase(species)]]-label">[[species]]</span></iron-label>
-
-              <!-- Test Results -->
-              <bloombox-testing
-                mode="rich"
-                thc="[[tests.thc]]"
-                cbd="[[tests.cbd]]"
-                pinene="[[tests.terpenes.pinene]]"
-                myrcene="[[tests.terpenes.myrcene]]"
-                limonene="[[tests.terpenes.limonene]]"
-                linalool="[[tests.terpenes.linalool]]"
-                caryophyllene="[[tests.terpenes.caryophyllene]]"></bloombox-testing>
-            </div><!-- end div.row.stock-flags -->
-
-            <!-- Product Media -->
-            <div class="flower-media row">
-              <div class="bloombox-media-wrap">
-                <bloombox-media disabled hidden$="[[_shouldHideImage()]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
-              </div><!-- end div.bloombox-media-wrap -->
-            </div><!-- end .row.test-results -->
-
-            <!-- Price List -->
-            <div class="row pricelist">
-              <bloombox-pricelist class="strainSealedPricelist" manifest="[[pricelist]]" currency="$"></bloombox-pricelist>
-            </div><!-- end div.row.pricelist -->
-            <template is="dom-if" if="[[!visible]]">
-              <div class="strain-overlay not-in-stock"></div><!-- end div.strain-overlay.not-in-stock -->
+              <template is="dom-if" if="[[!description]]">
+                <div class="no-description">(No description)</div>
+              </template>
             </template>
-          </div><!-- end div.strain-data-content.card-content -->
-          <div class="card-actions">
-            <paper-button on-tap="toggleEditing"><iron-icon icon="create"></iron-icon>Edit</paper-button>
-            <paper-button on-tap="triggerDelete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
-          </div><!-- end div.card-actions -->
-        </paper-card><!-- end paper-card.flower-product -->
-      </template>
-      
-      <!-- - - - - - - - - - - -->
-      <!-- Zero-State  Content -->
-      <!-- - - - - - - - - - - -->
-      <template is="dom-if" if="[[zerostate]]">
-        <paper-card class="fullwidth flower-product">
-          <div class="form-wrap zero-state-form card-content">
-            <div class="basic-info row">
-              <!-- Strain Name & Description -->
-              <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
-              <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
-            </div><!-- end .row.basic-info -->
+          </div><!-- end div.row.description-container -->
 
-            <div class="category-info row">
-              <div class="row-label">
-                <span class="row-label-value">Origins</span>
-              </div><!-- end div.row-label -->
+          <!-- Stock Flags -->
+          <div class="stock-flags strain-info test-info row">
+            <!-- MPMH -->
+            <iron-label class="premium-label" hidden$="[[!premium]]"><span>[[_renderPremiumLabel(partner)]]</span></iron-label>
 
-              <div class="ancestry-genetics">
-                <paper-checkbox id="ancestryToggle" on-tap="toggleAncestry" checked="[[knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+            <!-- Sale -->
+            <iron-label class="sale-label" hidden$="[[!sale]]"><span>[[sale]]% OFF</span></iron-label>
 
-                <div class="ancestry-spec">
-                  <template is="dom-if" if="{{ancestry}}">
-                    <paper-input id="maleAncestryField" no-label-float placeholder="Male" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
-                    <span class="genetics-separator">x</span>
-                    <paper-input id="femaleAncestryField" no-label-float placeholder="Female" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
-                  </template>
-                </div><!-- end div.ancestry-spec -->
-              </div><!-- end .row.ancestry-genetics -->
+            <!-- Buy-One-Get-One -->
+            <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
 
-              <!-- Grow -->
-              <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
-                <paper-listbox class="dropdown-content" selected="[[selectedGrow()]]">
-                  <paper-item>Indoor</paper-item>
-                  <paper-item>Greenhouse</paper-item>
-                  <paper-item>Outdoor</paper-item>
-                </paper-listbox>
-              </paper-dropdown-menu>
+            <!-- Grow -->
+            <iron-label class="grow-label"><span>[[grow]]</span></iron-label>
 
-              <!-- Species -->
-              <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
-                <paper-listbox class="dropdown-content" selected="[[selectedSpecies()]]">
-                  <paper-item>Indica</paper-item>
-                  <paper-item>Hybrid (Indica Dominant)</paper-item>
-                  <paper-item>Hybrid (No Dominance)</paper-item>
-                  <paper-item>Hybrid (Sativa Dominant)</paper-item>
-                  <paper-item>Sativa</paper-item>
-                </paper-listbox>
-              </paper-dropdown-menu>
-            </div><!-- end .row.category-info -->
-
-            <!-- Pricing/Sale Flags -->
-            <div class="stock-flags row">
-              <div class="row-label">
-                <span class="row-label-value">Inventory</span>
-              </div><!-- end div.row-label -->
-
-              <div class="in-stock-toggle-option">
-                <paper-checkbox id="showToggle" checked="[[isVisible()]]" class="form-item show-item-toggle" noink>In Stock</paper-checkbox>
-              </div><!-- end .in-stock-toggle-option -->
-
-              <div class="premium-toggle-option">
-                <paper-checkbox id="premiumToggle" checked="[[isPremium()]]" class="form-item premium-toggle" noink>[[renderPremiumLabel(partner)]]</paper-checkbox>
-              </div><!-- end .premium-toggle-option -->
-
-              <div class="sale-toggle-option">
-                <div class="sale-toggle-container">
-                  <paper-checkbox id="saleToggle" checked="[[isOnSale()]]" on-tap="toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
-                </div><!-- end .sale-toggle-container -->
-                <template is="dom-if" if="{{sale}}">
-                  <div class="sale-amount-container">
-                    <paper-slider id="saleValue" pin value="{{sale}}" max="95" min="5" editable step="5" class="form-item"></paper-slider>
-                  </div><!-- end .sale-amount-container -->
-                  <div class="sale-percentage-label">% off</div>
-                </template>
-              </div><!-- end .sale-toggle-option -->
-
-              <div class="bogo-toggle-option">
-                <paper-checkbox id="bogoToggle" checked="[[isBogo()]]" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
-              </div><!-- end .bogo-toggle-option -->
-            </div><!-- end .row.stock-flags -->
-            
-            <!-- Test Results -->
-            <div class="test-results row">
-              <div class="row-label">
-                <span class="row-label-value">Testing</span>
-              </div><!-- end div.row-label -->
-
-              <paper-checkbox id="testsToggle" checked="[[knownTestResults()]]" on-tap="toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
-              <div class="test-results-container">
-                <template is="dom-if" if="{{tests}}">
-                  <bloombox-testing
-                    id="productTesting"
-                    zerostate
-                    mode="rich"
-                    thc="{{tests.thc}}"
-                    cbd="{{tests.cbd}}"
-                    pinene="{{tests.terpenes.pinene}}"
-                    myrcene="{{tests.terpenes.myrcene}}"
-                    limonene="{{tests.terpenes.limonene}}"
-                    linalool="{{tests.terpenes.linalool}}"
-                    caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
-                </template>
-              </div><!-- end .test-results-container -->
-            </div><!-- end .row.test-results -->
+            <!-- Species -->
+            <iron-label class="species-label"><span>[[species]]</span></iron-label>
 
             <!-- Test Results -->
-            <div class="flower-media row">
-              <div class="bloombox-media-wrap">
-                <bloombox-media partner="[[partner]]" asset="[[_image]]" on-asset-ready="handleAssetAttach"></bloombox-media>
-              </div><!-- end div.bloombox-media-wrap -->
-            </div><!-- end .row.test-results -->
+            <bloombox-testing
+              mode="rich"
+              thc="[[tests.thc]]"
+              cbd="[[tests.cbd]]"
+              pinene="[[tests.terpenes.pinene]]"
+              myrcene="[[tests.terpenes.myrcene]]"
+              limonene="[[tests.terpenes.limonene]]"
+              linalool="[[tests.terpenes.linalool]]"
+              caryophyllene="[[tests.terpenes.caryophyllene]]"></bloombox-testing>
+          </div><!-- end div.row.stock-flags -->
 
-            <!-- Price List -->
-            <div class="row pricelist">
-              <bloombox-pricelist class="strainEditablePricelist" manifest='{{pricelist}}' currency="$" editable></bloombox-pricelist>
-            </div><!-- end .row.pricelist -->
-          </div>
-          <!-- Actions -->
-          <template is="dom-if" if="[[editing]]">
-            <div class="strain-zerostate-actions card-actions row">
-              <paper-button id="saveButton" raised on-tap="commitEdits"><iron-icon icon="save"></iron-icon>Save</paper-button>
-              <paper-button id="cancelButton" on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
-            </div><!-- end .strain-zerostate-actions.card-actions -->
+          <!-- Product Media -->
+          <div class="product-media flower-media row">
+            <div class="bloombox-media-wrap">
+              <bloombox-media disabled hidden$="[[_shouldHideImage()]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
+            </div><!-- end div.bloombox-media-wrap -->
+          </div><!-- end .row.test-results -->
+
+          <!-- Price List -->
+          <div class="row pricelist">
+            <bloombox-pricelist
+              class="strainSealedPricelist"
+              manifest="[[pricing]]"
+              currency="$"></bloombox-pricelist>
+          </div><!-- end div.row.pricelist -->
+          <template is="dom-if" if="[[!visible]]">
+            <div class="not-in-stock-overlay not-in-stock"></div><!-- end div.not-in-stock-overlay.not-in-stock -->
           </template>
-          <template is="dom-if" if="[[!editing]]">
-            <div class="strain-zerostate-actions edit-actions card-actions row">
-              <paper-button id="submitButton" raised on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
-              <paper-button id="discardButton" on-tap="toggleAddEntry"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
-            </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
-          </template>
-        </paper-card><!-- end paper-card.flower-product -->
-      </template>
-    </div>
+        </div><!-- end div.strain-data-content.card-content -->
+        <div class="card-actions">
+          <paper-button on-tap="edit"><iron-icon icon="create"></iron-icon>Edit</paper-button>
+          <paper-button on-tap="delete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
+        </div><!-- end div.card-actions -->
+      </paper-card><!-- end paper-card.product-card.flower-product -->
+    </template>
+    
+    <!-- - - - - - - - - - - -->
+    <!-- Zero-State  Content -->
+    <!-- - - - - - - - - - - -->
+    <template is="dom-if" if="[[zerostate]]">
+      <paper-card heading="Flower" class="product-card zerostate fullwidth flower-product">
+        <div class="card-content">
+          <div class="basic-info row">
+            <!-- Strain Name & Description -->
+            <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
+            <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
+          </div><!-- end .row.basic-info -->
+
+          <div class="category-info row">
+            <div class="row-label">
+              <span class="row-label-value">Origins</span>
+            </div><!-- end div.row-label -->
+
+            <div class="ancestry-genetics">
+              <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+
+              <div class="ancestry-spec">
+                <template is="dom-if" if="{{ancestry}}">
+                  <paper-input id="maleAncestryField" no-label-float value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                  <span class="genetics-separator">x</span>
+                  <paper-input id="femaleAncestryField" no-label-float value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+                </template>
+              </div><!-- end div.ancestry-spec -->
+            </div><!-- end .row.ancestry-genetics -->
+
+            <!-- Grow -->
+            <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
+              <paper-listbox class="dropdown-content" selected="{{grow}}">
+                <paper-item>Indoor</paper-item>
+                <paper-item>Greenhouse</paper-item>
+                <paper-item>Outdoor</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+
+            <!-- Species -->
+            <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
+              <paper-listbox class="dropdown-content" selected="{{species}}">
+                <paper-item>Indica</paper-item>
+                <paper-item>Hybrid (Indica Dominant)</paper-item>
+                <paper-item>Hybrid (No Dominance)</paper-item>
+                <paper-item>Hybrid (Sativa Dominant)</paper-item>
+                <paper-item>Sativa</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div><!-- end .row.category-info -->
+
+          <!-- Pricing/Sale Flags -->
+          <div class="stock-flags row">
+            <div class="row-label">
+              <span class="row-label-value">Inventory</span>
+            </div><!-- end div.row-label -->
+
+            <div class="in-stock-toggle-option">
+              <paper-checkbox id="showToggle" checked="{{visible}}" class="form-item show-item-toggle" noink>In Stock</paper-checkbox>
+            </div><!-- end .in-stock-toggle-option -->
+
+            <div class="premium-toggle-option">
+              <paper-checkbox id="premiumToggle" checked="{{premium}}" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
+            </div><!-- end .premium-toggle-option -->
+
+            <div class="sale-toggle-option">
+              <div class="sale-toggle-container">
+                <paper-checkbox id="saleToggle" checked="[[_isOnSale()]]" on-tap="toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+              </div><!-- end .sale-toggle-container -->
+              <template is="dom-if" if="{{sale}}">
+                <div class="sale-amount-container">
+                  <paper-slider id="saleValue" pin value="{{sale}}" max="95" min="5" editable step="5" class="form-item"></paper-slider>
+                </div><!-- end .sale-amount-container -->
+                <div class="sale-percentage-label">% off</div>
+              </template>
+            </div><!-- end .sale-toggle-option -->
+
+            <div class="bogo-toggle-option">
+              <paper-checkbox id="bogoToggle" checked="{{bogo}}" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+            </div><!-- end .bogo-toggle-option -->
+          </div><!-- end .row.stock-flags -->
+          
+          <!-- Test Results -->
+          <div class="test-results row">
+            <div class="row-label">
+              <span class="row-label-value">Testing</span>
+            </div><!-- end div.row-label -->
+
+            <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
+            <div class="test-results-container">
+              <template is="dom-if" if="{{tests}}">
+                <bloombox-testing
+                  id="productTesting"
+                  zerostate
+                  mode="rich"
+                  thc="{{tests.thc}}"
+                  cbd="{{tests.cbd}}"
+                  pinene="{{tests.terpenes.pinene}}"
+                  myrcene="{{tests.terpenes.myrcene}}"
+                  limonene="{{tests.terpenes.limonene}}"
+                  linalool="{{tests.terpenes.linalool}}"
+                  caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
+              </template>
+            </div><!-- end .test-results-container -->
+          </div><!-- end .row.test-results -->
+
+          <!-- Test Results -->
+          <div class="flower-media row">
+            <div class="bloombox-media-wrap">
+              <bloombox-media
+                partner="[[partner]]"
+                asset="[[_image]]"
+                on-asset-ready="handleAssetAttach"></bloombox-media>
+            </div><!-- end div.bloombox-media-wrap -->
+          </div><!-- end .row.test-results -->
+
+          <!-- Price List -->
+          <div class="row pricelist">
+            <bloombox-pricelist
+              class="editablePricelist"
+              manifest='{{pricing}}'
+              currency="$"
+              editable></bloombox-pricelist>
+          </div><!-- end .row.pricelist -->
+        </div>
+        <!-- Actions -->
+        <template is="dom-if" if="[[editing]]">
+          <div class="strain-zerostate-actions card-actions row">
+            <paper-button
+              id="saveButton"
+              raised
+              on-tap="commitEdits">
+              <iron-icon icon="save"></iron-icon>Save</paper-button>
+            <paper-button
+              id="cancelButton"
+              on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
+          </div><!-- end .strain-zerostate-actions.card-actions -->
+        </template>
+        <template is="dom-if" if="[[!editing]]">
+          <div class="strain-zerostate-actions edit-actions card-actions row">
+            <paper-button
+              id="submitButton"
+              raised
+              on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
+            <paper-button
+              id="discardButton"
+              on-tap="_triggerDiscard"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
+          </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
+        </template>
+      </paper-card><!-- end paper-card.flower-product -->
+    </template>
   </template>
 
   <script>
-    (function () {
-      Polymer.BloomboxStrain = Polymer({
-        is: 'bloombox-strain',
-        properties: {
-          // -- internals
-          _image: {
-            type: String,
-            notify: true,
-            computed: '_computeImage(pictures)'
-          },
+    Polymer.BloomboxStrain = Polymer({
+      is: 'bloombox-strain',
+      behaviors: [Polymer.BloomboxBaseProductCardBehavior],
 
-          _slim: {
-            type: Boolean,
-            notify: true,
-            computed: '_computeSlimMode(displayMode)'
-          },
+      /**
+       * Persistence schema and storage collection for this item.
+       */
+      _schema: 'flowers',
 
-          // -- UI state
-          displayMode: {
-            type: String,
-            value: 'normal',
-            notify: true,
-            reflectToAttribute: true
-          },
+      properties: {
+        /**
+         * Stores ancestry for this flower item, if known. Ancestry is defined as
+         * the parent male + female plant, and is structured as an `Object` with two
+         * properties: `male` and `female`. Each is a `String` name of a strain.
+         */
+        ancestry: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true
+        },
 
-          editing: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          zerostate: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          // -- strain properties
-          key: {
-            type: String,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          name: {
-            type: String,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          description: {
-            type: String,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          pictures: {
-            type: Array,
-            notify: true,
-            reflectToAttribute: true,
-            value: function() {
-              return [];
-            }
-          },
-
-          tests: {
-            type: Object,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          grow: {
-            type: String,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          species: {
-            type: String,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          ancestry: {
-            type: Object,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          pricelist: {
-            type: Object,
-            notify: true,
-            reflectToAttribute: true,
-            value: function() {
-              return [{"label": "1g", "available": true, "price": 0}, {"label": "3.5g", "available": true, "price": 0}, {"label": "7g", "available": true, "price": 0}, {"label": "14g", "available": true, "price": 0}, {"label": "28g", "available": true, "price": 0}];
-            }
-          },
-
-          sale: {
-            type: Number,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          bogo: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true,
-            value: false
-          },
-
-          visible: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true,
-            value: true
-          },
-
-          premium: {
-            type: Boolean,
-            notify: true,
-            reflectToAttribute: true
-          },
-
-          partner: {
-            type: String,
-            notify: true,
-            value: "mm"
+        /**
+         * Pricing for flowers is rather extensive and based on different standard weights:
+         * - `gram`
+         * - `eighth`
+         * - `quarter`
+         * - `half`
+         * - `ounce`
+         */
+        pricing: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          value: function() {
+            return [{"label": "gram", "available": true, "price": 0}, {"label": "eighth", "available": true, "price": 0}, {"label": "quarter", "available": true, "price": 0}, {"label": "half", "available": true, "price": 0}, {"label": "ounce", "available": true, "price": 0}];
           }
-        },
-
-        _computeImage: function(pictures) {
-          if (Array.isArray(pictures) && pictures.length > 0)
-            return pictures[0];
-          return null;
-        },
-
-        _computeSlimMode: function(displayMode) {
-          return displayMode == "slim";
-        },
-
-        _shouldHideImage: function() {
-          // we should hide the image if:
-          // 1) we are in slimline mode
-          // 2) there is no image and we are in zero-state
-          var image = this.get("_image"),
-              slim = this.get("_slim") || false;
-          return (slim || !image);
-        },
-
-        lowercase: function(item) {
-          return item.toLowerCase();
-        },
-
-        toggleSale: function() {
-          this.sale = this.$$("#saleToggle").checked ?
-            20 : undefined;
-        },
-
-        isOnSale: function() {
-          return this.sale !== undefined && this.sale > 0;
-        },
-
-        isPremium: function() {
-          if (this.premium !== undefined && this.premium !== null) {
-            return this.premium;
-          }
-          return false;
-        },
-
-        isVisible: function() {
-          if (this.visible !== undefined && this.visible !== null) {
-            return this.visible;
-          }
-          return true;
-        },
-
-        isBogo: function() {
-          if (this.bogo === true) {
-            return true;
-          }
-          return false;
-        },
-
-        hasDescription: function() {
-          var description = this.get("description");
-          return description !== undefined && description !== null && description.length > 1;
-        },
-
-        knownAncestry: function() {
-          return this.ancestry !== undefined && this.ancestry !== null && typeof this.ancestry == "object";
-        },
-
-        knownTestResults: function() {
-          return this.tests !== undefined && this.tests !== null && typeof this.tests == "object";
-        },
-
-        hasTerpene: function(terpene) {
-          if (this.knownTestResults() && this.tests.terpenes !== undefined && this.tests.terpenes !== null) {
-            return this.tests.terpenes[terpene];
-          }
-          return false;
-        },
-
-        renderPremiumLabel: function(partner) {
-          if (partner === "abatin")
-            return "MPMH";
-          return "Top Shelf";
-        },
-
-        selectedGrow: function() {
-          // @TODO: we can do better than this
-          var grow = this.get("grow");
-
-          if ((this.hasAttribute("zerostate") && !this.get("editing")) || grow === undefined || grow == null) {
-            return undefined;
-          }
-          grow = grow.toLowerCase();
-          if (grow.indexOf("indoor") != -1) { return "0"; }
-          if (grow.indexOf("greenhouse") != -1) { return "1"; }
-          if (grow.indexOf("outdoor") != -1) { return "2"; }
-        },
-
-        selectedSpecies: function() {
-          // @TODO: same here
-          var species = this.get("species");
-
-          if ((this.hasAttribute("zerostate") && !this.get("editing")) || species === undefined || species == null) {
-            return undefined;
-          }
-          species = species.toLowerCase();
-          if (species.indexOf("hybrid") != -1) {
-            if (species.indexOf("indica") != -1) { return "1"; }
-            if (species.indexOf("sativa") != -1) { return "3"; }
-            return "2";
-          }
-          if (species.indexOf("indica") != -1) { return "0"; }
-          if (species.indexOf("sativa") != -1) { return "4"; }
-          return "";
-        },
-
-        thcValue: function() {
-          if (this.tests !== undefined && this.tests != null && typeof this.tests == "object") {
-            return this.tests.thc;
-          }
-          return 1.0;
-        },
-
-        cbdValue: function() {
-          if (this.tests !== undefined && this.tests != null && typeof this.tests == "object") {
-            return this.tests.cbd;
-          }
-          return 1.0;
-        },
-
-        toggleAncestry: function() {
-          this.ancestry = this.$$("#ancestryToggle").checked ?
-            {} : undefined;
-        },
-
-        toggleTests: function() {
-          this.tests = this.$$("#testsToggle").checked ?
-            {} : undefined;
-        },
-
-        toggleAddEntry: function() {
-          bloom.app.toggleAddEntry();
-        },
-
-        toggleEditing: function() {
-          console.log("Editing item...", this);
-          this.set("editing", true);
-          this.set("zerostate", true);
-        },
-
-        handleAssetAttach: function(event) {
-          var that = this;
-          console.log("Attaching asset:", event);
-          bloom.app.attachAsset(event.target, function (uuid, error) {
-            // handle edit success/fail
-            if (error) {
-              console.error("Failed to upload media for item: ", this, error);
-              alert('Failed to attach image.');
-            } else {
-              console.log("Media item uploaded successfully.", uuid);
-              that.set("pictures", [uuid]);
-              event.target.adoptNewAsset();
-            }
-          });
-        },
-
-        commitEdits: function(callback) {
-          var previous = this.readObjectData(),
-              serialized = this.readZeroStateForm()
-              that = this;
-          console.log("Committing edits...", previous, serialized);
-          bloom.app.saveEditsForEntry("flowers", this.get("key"), previous, serialized, function (error) {
-            // handle edit success/fail
-            if (error) {
-              console.error("Failed to save edits for item: ", this, error);
-              alert('Failed to apply edits.');
-            } else {
-              console.log("Edits applied successfully.");
-              if (callback !== undefined && typeof callback === "function")
-                callback();
-              that.set("editing", false);
-              that.set("zerostate", false);
-            }
-          });
-        },
-
-        cancelEdits: function() {
-          console.log("Cancelled staged edits for item.");
-          this.set("editing", false);
-          this.set("zerostate", false);
-        },
-
-        triggerDelete: function() {
-          console.log("Deleting item...", this);
-          bloom.app.deleteEntryAtId("flowers", this.get("key"));
-        },
-
-        readObjectData: function() {
-          var payload = {};
-
-          // handle required fields
-          payload.name = this.get("name");
-          payload.grow = this.get("grow");
-          payload.species = this.get("species");
-          payload.pictures = this.get("pictures") || [];
-
-          // handle ancestry
-          if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
-            payload.ancestry = {
-              male: this.get("ancestry").male,
-              female: this.get("ancestry").female
-            };
-          }
-
-          // handle test results
-          if (this.get("tests") !== undefined && this.get("tests") != null) {
-            payload.tests = {
-              thc: this.get("tests").thc,
-              cbd: this.get("tests").cbd,
-              terpenes: {
-                pinene: this.get("tests").terpenes.pinene,
-                myrcene: this.get("tests").terpenes.myrcene,
-                limonene: this.get("tests").limonene,
-                caryophyllene: this.get("tests").caryophyllene,
-                linalool: this.get("tests").linalool
-              }
-            };
-          }
-
-          // handle optional fields
-          if (this.get("premium") == true) {
-            payload.flags = payload.flags || {};
-            payload.flags.premium = true;
-          }
-          if (this.get("sale") !== undefined && this.get("sale") != null) {
-            payload.flags = payload.flags || {};
-            payload.flags.sale = this.get("sale");
-          }
-          if (this.get("visible") != null && this.get("visible") != undefined) {
-            payload.flags = payload.flags || {};
-            payload.flags.visible = this.get("visible");
-          }
-          if (this.get("bogo") != null && this.get("bogo") != undefined) {
-            payload.flags = payload.flags || {};
-            payload.flags.bogo = this.get("bogo");
-          }
-          if (this.get("description") !== undefined && this.get("description") !== null &&
-              this.get("description").length > 0) payload.description = this.get("description");
-          return payload;
-        },
-
-        readZeroStateForm: function() {
-          var payload = {},
-              manifest = this.$$(".strainEditablePricelist").readManifest(this),
-              pricelist = {},
-              mi, mpayload, testing;
-
-          // handle required fields
-          payload.name = this.$$("#nameField").value;
-          payload.grow = this.$$("#growField").value;
-          payload.species = this.$$("#speciesField").value;
-
-          if (this.get("pictures") && this.get("pictures").length > 0)
-            payload.pictures = this.get("pictures");
-
-          // handle ancestry
-          if (this.$$("#ancestryToggle").checked) {
-            payload.ancestry = {
-              male: this.$$("#maleAncestryField").value,
-              female: this.$$("#femaleAncestryField").value
-            };
-          }
-
-          // handle test results
-          if (this.$$("#testsToggle").checked) {
-            testing = this.$$("#productTesting");
-            payload.tests = {
-              thc: testing.thc,
-              cbd: testing.cbd,
-              terpenes: {
-                pinene: testing.pinene,
-                myrcene: testing.myrcene,
-                limonene: testing.limonene,
-                caryophyllene: testing.caryophyllene,
-                linalool: testing.linalool
-              }
-            };
-          }
-
-          // handle pricing
-          for (mi in manifest) {
-            mpayload = manifest[mi];
-            pricelist[bloom.strings.strainLabels[mpayload["label"]]] = {
-              available: mpayload["available"],
-              price: Number(mpayload["price"])
-            }
-          }
-          payload.pricelist = pricelist;
-
-          // handle optional fields
-          if (this.$$("#premiumToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.premium = true;
-          }
-          if (this.$$("#showToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.visible = true;
-          } else {
-            payload.flags = payload.flags || {};
-            payload.flags.visible = false;
-          }
-          if (this.$$("#bogoToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.bogo = true;
-          }
-          if (this.$$("#saleToggle").checked) {
-            payload.flags = payload.flags || {};
-            payload.flags.sale = this.$$("#saleValue").value;
-          }
-          if (this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0)
-            payload.description = this.$$("#descriptionField").value;
-          return payload;
-        },
-
-        persist: function() {
-          bloom.app.saveNewObject("edibles", this.readZeroStateForm());  // read the form into our object
         }
-      });
-    })();
+      },
+
+      /**
+       * Render function to determine whether ancestry is known.
+       */
+      _knownAncestry: function() {
+        return this.ancestry !== undefined && this.ancestry !== null && typeof this.ancestry == "object";
+      },
+
+      /**
+       * Responder function to toggle ancestry management UI.
+       */
+      _toggleAncestry: function() {
+        this.ancestry = this.$$("#ancestryToggle").checked ?
+          {} : undefined;
+      },
+
+      /**
+       * Read underlying object data, suitable for writing into underlying persistence
+       * or comparing with edits.
+       */
+      readObjectData: function() {
+        var payload = {};
+
+        // handle required fields
+        payload.name = this.get("name");
+        payload.grow = this.get("grow");
+        payload.species = this.get("species");
+        payload.pictures = this.get("photos") || [];
+        payload.pricelist = this.get("pricing");
+
+        // handle ancestry
+        if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
+          payload.ancestry = {
+            male: this.get("ancestry").male,
+            female: this.get("ancestry").female
+          };
+        }
+
+        // handle test results
+        if (this.get("tests") !== undefined && this.get("tests") != null) {
+          payload.tests = {
+            thc: this.get("tests").thc,
+            cbd: this.get("tests").cbd,
+            terpenes: {
+              pinene: this.get("tests").terpenes.pinene,
+              myrcene: this.get("tests").terpenes.myrcene,
+              limonene: this.get("tests").limonene,
+              caryophyllene: this.get("tests").caryophyllene,
+              linalool: this.get("tests").linalool
+            }
+          };
+        }
+
+        // handle optional fields
+        if (this.get("premium") == true) {
+          payload.flags = payload.flags || {};
+          payload.flags.premium = true;
+        }
+        if (this.get("sale") !== undefined && this.get("sale") != null) {
+          payload.flags = payload.flags || {};
+          payload.flags.sale = this.get("sale");
+        }
+        if (this.get("visible") != null && this.get("visible") != undefined) {
+          payload.flags = payload.flags || {};
+          payload.flags.visible = this.get("visible");
+        }
+        if (this.get("bogo") != null && this.get("bogo") != undefined) {
+          payload.flags = payload.flags || {};
+          payload.flags.bogo = this.get("bogo");
+        }
+        if (this.get("description") !== undefined && this.get("description") !== null &&
+            this.get("description").length > 0) payload.description = this.get("description");
+        return payload;
+      },
+
+      /**
+       * Read underlying object data direct from the current zero-state form.
+       */
+      readZeroStateForm: function() {
+        var payload = {},
+            manifest = this.$$(".editablePricelist").readManifest(this),
+            pricelist = {},
+            mi, mpayload, testing;
+
+        // handle required fields
+        payload.name = this.$$("#nameField").value;
+        payload.grow = this.$$("#growField").value;
+        payload.species = this.$$("#speciesField").value;
+
+        if (this.get("photos") && this.get("photos").length > 0)
+          payload.pictures = this.get("photos");
+
+        // handle ancestry
+        if (this.$$("#ancestryToggle").checked) {
+          payload.ancestry = {
+            male: this.$$("#maleAncestryField").value,
+            female: this.$$("#femaleAncestryField").value
+          };
+        }
+
+        // handle test results
+        if (this.$$("#testsToggle").checked) {
+          testing = this.$$("#productTesting");
+          payload.tests = {
+            thc: testing.thc,
+            cbd: testing.cbd,
+            terpenes: {
+              pinene: testing.pinene,
+              myrcene: testing.myrcene,
+              limonene: testing.limonene,
+              caryophyllene: testing.caryophyllene,
+              linalool: testing.linalool
+            }
+          };
+        }
+
+        // handle pricing
+        for (mi in manifest) {
+          mpayload = manifest[mi];
+          pricelist[bloom.strings.strainLabels[mpayload["label"]]] = {
+            available: mpayload["available"],
+            price: Number(mpayload["price"])
+          }
+        }
+        payload.pricelist = pricelist;
+
+        // handle optional fields
+        if (this.$$("#premiumToggle").checked) {
+          payload.flags = payload.flags || {};
+          payload.flags.premium = true;
+        }
+        if (this.$$("#showToggle").checked) {
+          payload.flags = payload.flags || {};
+          payload.flags.visible = true;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.visible = false;
+        }
+        if (this.$$("#bogoToggle").checked) {
+          payload.flags = payload.flags || {};
+          payload.flags.bogo = true;
+        }
+        if (this.$$("#saleToggle").checked) {
+          payload.flags = payload.flags || {};
+          payload.flags.sale = this.$$("#saleValue").value;
+        }
+        if (this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0)
+          payload.description = this.$$("#descriptionField").value;
+        return payload;
+      }
+    });
   </script>
 </dom-module>
