@@ -37,6 +37,7 @@
     <style is="custom-style" include="bloombox-styles">
       :host {
         display: block;
+        width: 100%;
       }
     </style>
 
@@ -90,7 +91,12 @@
           <!-- Product Media -->
           <div class="product-media flower-media row">
             <div class="bloombox-media-wrap">
-              <bloombox-media disabled hidden$="[[_shouldHideImage()]]" partner="[[partner]]" asset="[[_image]]"></bloombox-media>
+              <bloombox-media
+                disabled
+                hidden$="[[_shouldHideImage()]]"
+                partner="[[partner]]"
+                environment="[[environment]]"
+                asset="[[_image]]"></bloombox-media>
             </div><!-- end div.bloombox-media-wrap -->
           </div><!-- end .row.test-results -->
 
@@ -222,6 +228,7 @@
             <div class="bloombox-media-wrap">
               <bloombox-media
                 partner="[[partner]]"
+                environment="[[environment]]"
                 asset="[[_image]]"
                 on-asset-ready="handleAssetAttach"></bloombox-media>
             </div><!-- end div.bloombox-media-wrap -->
