@@ -149,21 +149,23 @@
 
             <!-- Grow -->
             <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
-              <paper-listbox class="dropdown-content" selected="{{grow}}">
-                <paper-item>Indoor</paper-item>
-                <paper-item>Greenhouse</paper-item>
-                <paper-item>Outdoor</paper-item>
+              <paper-listbox class="dropdown-content" selected="[[grow]]" attr-for-selected="key">
+                <paper-item key="Indoor">Indoor</paper-item>
+                <paper-item key="Greenhouse">Greenhouse</paper-item>
+                <paper-item key="Outdoor">Outdoor</paper-item>
+                <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
 
             <!-- Species -->
             <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
-              <paper-listbox class="dropdown-content" selected="{{species}}">
-                <paper-item>Indica</paper-item>
-                <paper-item>Hybrid (Indica Dominant)</paper-item>
-                <paper-item>Hybrid (No Dominance)</paper-item>
-                <paper-item>Hybrid (Sativa Dominant)</paper-item>
-                <paper-item>Sativa</paper-item>
+              <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
+                <paper-item key="Indica">Indica</paper-item>
+                <paper-item key="Hybrid (Indica Dominant)">Hybrid (Indica Dominant)</paper-item>
+                <paper-item key="Hybrid (No Dominance)">Hybrid (No Dominance)</paper-item>
+                <paper-item key="Hybrid (Sativa Dominant)">Hybrid (Sativa Dominant)</paper-item>
+                <paper-item key="Sativa">Sativa</paper-item>
+                <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
           </div><!-- end .row.category-info -->
