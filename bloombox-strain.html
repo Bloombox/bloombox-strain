@@ -186,7 +186,7 @@
 
             <div class="sale-toggle-option">
               <div class="sale-toggle-container">
-                <paper-checkbox id="saleToggle" checked="[[_isOnSale()]]" on-tap="toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+                <paper-checkbox id="saleToggle" checked="[[_isOnSale()]]" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
               </div><!-- end .sale-toggle-container -->
               <template is="dom-if" if="{{sale}}">
                 <div class="sale-amount-container">
@@ -393,7 +393,6 @@
       readZeroStateForm: function() {
         var payload = {},
             manifest = this.$$(".editablePricelist").readManifest(),
-            strainLabels = {"1g":"gram","3.5g":"eighth","7g":"quarter","14g":"half","28g":"ounce"},
             pricelist = {},
             mi, mpayload, testing;
 
@@ -430,14 +429,7 @@
         }
 
         // handle pricing
-        for (mi in manifest) {
-          mpayload = manifest[mi];
-          pricelist[strainLabels[mpayload["label"]]] = {
-            available: mpayload["available"],
-            price: Number(mpayload["price"])
-          }
-        }
-        payload.pricelist = pricelist;
+        payload.pricelist = manifest;
 
         // handle optional fields
         if (this.$$("#premiumToggle").checked) {
