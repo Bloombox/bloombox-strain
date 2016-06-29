@@ -392,7 +392,8 @@
        */
       readZeroStateForm: function() {
         var payload = {},
-            manifest = this.$$(".editablePricelist").readManifest(this),
+            manifest = this.$$(".editablePricelist").readManifest(),
+            strainLabels = {"1g":"gram","3.5g":"eighth","7g":"quarter","14g":"half","28g":"ounce"},
             pricelist = {},
             mi, mpayload, testing;
 
@@ -431,7 +432,7 @@
         // handle pricing
         for (mi in manifest) {
           mpayload = manifest[mi];
-          pricelist[bloom.strings.strainLabels[mpayload["label"]]] = {
+          pricelist[strainLabels[mpayload["label"]]] = {
             available: mpayload["available"],
             price: Number(mpayload["price"])
           }
