@@ -383,7 +383,11 @@
           payload.flags.bogo = this.get("bogo");
         }
         if (this.get("description") !== undefined && this.get("description") !== null &&
-            this.get("description").length > 0) payload.description = this.get("description");
+            this.get("description").length > 0) {
+          payload.description = this.get("description")
+        } else {
+          payload.description = null;
+        }
         return payload;
       },
 
