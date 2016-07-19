@@ -75,17 +75,14 @@
 
             <!-- Species -->
             <iron-label class="species-label"><span>[[species]]</span></iron-label>
-
+    "myrcene", "caryophyllene oxide", "linalool", "β-caryophyllene", "α-humulene", "α-terpineol", "camphene", "fenchol", "β-pinene",
+    "α-terpinine", "α-pinene", "γ-terpinine", "limonene", "carene", "beta-ocimene", "α-phellandrene", "terpinolene"
             <!-- Test Results -->
             <bloombox-testing
               mode="rich"
               thc="[[tests.thc]]"
               cbd="[[tests.cbd]]"
-              pinene="[[tests.terpenes.pinene]]"
-              myrcene="[[tests.terpenes.myrcene]]"
-              limonene="[[tests.terpenes.limonene]]"
-              linalool="[[tests.terpenes.linalool]]"
-              caryophyllene="[[tests.terpenes.caryophyllene]]"></bloombox-testing>
+              terpenes="[[tests.terpenes]]"></bloombox-testing>
           </div><!-- end div.row.stock-flags -->
 
           <!-- Product Media -->
@@ -216,11 +213,7 @@
                   mode="rich"
                   thc="{{tests.thc}}"
                   cbd="{{tests.cbd}}"
-                  pinene="{{tests.terpenes.pinene}}"
-                  myrcene="{{tests.terpenes.myrcene}}"
-                  limonene="{{tests.terpenes.limonene}}"
-                  linalool="{{tests.terpenes.linalool}}"
-                  caryophyllene="{{tests.terpenes.caryophyllene}}"></bloombox-testing>
+                  terpenes="{{tests.terpenes}}"></bloombox-testing>
               </template>
             </div><!-- end .test-results-container -->
           </div><!-- end .row.test-results -->
@@ -355,13 +348,7 @@
           payload.tests = {
             thc: this.get("tests").thc,
             cbd: this.get("tests").cbd,
-            terpenes: {
-              pinene: this.get("tests").terpenes.pinene,
-              myrcene: this.get("tests").terpenes.myrcene,
-              limonene: this.get("tests").limonene,
-              caryophyllene: this.get("tests").caryophyllene,
-              linalool: this.get("tests").linalool
-            }
+            terpenes: this.get("tests").terpenes
           };
         }
 
@@ -421,13 +408,7 @@
           payload.tests = {
             thc: testing.thc,
             cbd: testing.cbd,
-            terpenes: {
-              pinene: testing.pinene,
-              myrcene: testing.myrcene,
-              limonene: testing.limonene,
-              caryophyllene: testing.caryophyllene,
-              linalool: testing.linalool
-            }
+            terpenes: testing.terpenes
           };
         }
 
