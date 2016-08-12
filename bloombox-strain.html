@@ -46,7 +46,34 @@
     <template is="dom-if" if="[[!zerostate]]">
       <div class="product-card strain-card">
         <div class="card-content">
-          <h2>[[name]]</h2>
+          <div class="name-row">
+            <h2>[[name]]</h2>
+
+            <!-- Stock Flags -->
+            <div class="stock-flags strain-info test-info">
+              <!-- MPMH -->
+              <iron-label class="premium-label" hidden$="[[!premium]]"><span>[[_renderPremiumLabel(partner)]]</span></iron-label>
+
+              <!-- Sale -->
+              <iron-label class="sale-label" hidden$="[[!sale]]"><span>[[sale]]% OFF</span></iron-label>
+
+              <!-- Buy-One-Get-One -->
+              <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
+
+              <!-- Grow -->
+              <iron-label class="grow-label"><span>[[grow]]</span></iron-label>
+
+              <!-- Species -->
+              <iron-label class="species-label"><span>[[species]]</span></iron-label>
+
+              <!-- Test Results -->
+              <bloombox-testing
+                mode="rich"
+                thc="[[tests.thc]]"
+                cbd="[[tests.cbd]]"
+                terpenes="[[tests.terpenes]]"></bloombox-testing>
+            </div><!-- end div.row.stock-flags -->
+          </div><!-- end div.name-row -->
 
           <!-- Description -->
           <div class="row description-container">
@@ -57,31 +84,6 @@
               <div class="no-description">(No description)</div>
             </template>
           </div><!-- end div.row.description-container -->
-
-          <!-- Stock Flags -->
-          <div class="stock-flags strain-info test-info row">
-            <!-- MPMH -->
-            <iron-label class="premium-label" hidden$="[[!premium]]"><span>[[_renderPremiumLabel(partner)]]</span></iron-label>
-
-            <!-- Sale -->
-            <iron-label class="sale-label" hidden$="[[!sale]]"><span>[[sale]]% OFF</span></iron-label>
-
-            <!-- Buy-One-Get-One -->
-            <iron-label class="bogo-label" hidden$="[[!bogo]]"><span>Buy One Get One</span></iron-label>
-
-            <!-- Grow -->
-            <iron-label class="grow-label"><span>[[grow]]</span></iron-label>
-
-            <!-- Species -->
-            <iron-label class="species-label"><span>[[species]]</span></iron-label>
-
-            <!-- Test Results -->
-            <bloombox-testing
-              mode="rich"
-              thc="[[tests.thc]]"
-              cbd="[[tests.cbd]]"
-              terpenes="[[tests.terpenes]]"></bloombox-testing>
-          </div><!-- end div.row.stock-flags -->
 
           <!-- Product Media -->
           <div class="product-media flower-media row">
@@ -116,147 +118,149 @@
     <!-- Zero-State  Content -->
     <!-- - - - - - - - - - - -->
     <template is="dom-if" if="[[zerostate]]">
-      <div class="basic-info row">
-        <!-- Strain Name & Description -->
-        <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
-        <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
-      </div><!-- end .row.basic-info -->
+      <div class="product-card strain-card zerostate">
+        <div class="basic-info row">
+          <!-- Strain Name & Description -->
+          <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
+          <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
+        </div><!-- end .row.basic-info -->
 
-      <div class="category-info row">
-        <div class="row-label">
-          <span class="row-label-value">Origins</span>
-        </div><!-- end div.row-label -->
+        <div class="category-info row">
+          <div class="row-label">
+            <span class="row-label-value">Origins</span>
+          </div><!-- end div.row-label -->
 
-        <!-- Grow -->
-        <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
-          <paper-listbox class="dropdown-content" selected="[[grow]]" attr-for-selected="key">
-            <paper-item key="Indoor">Indoor</paper-item>
-            <paper-item key="Greenhouse">Greenhouse</paper-item>
-            <paper-item key="Outdoor">Outdoor</paper-item>
-            <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+          <!-- Grow -->
+          <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
+            <paper-listbox class="dropdown-content" selected="[[grow]]" attr-for-selected="key">
+              <paper-item key="Indoor">Indoor</paper-item>
+              <paper-item key="Greenhouse">Greenhouse</paper-item>
+              <paper-item key="Outdoor">Outdoor</paper-item>
+              <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
 
-        <!-- Species -->
-        <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
-          <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
-            <paper-item key="Indica">Indica</paper-item>
-            <paper-item key="Hybrid (Indica Dominant)">Hybrid (Indica Dominant)</paper-item>
-            <paper-item key="Hybrid (No Dominance)">Hybrid (No Dominance)</paper-item>
-            <paper-item key="Hybrid (Sativa Dominant)">Hybrid (Sativa Dominant)</paper-item>
-            <paper-item key="Sativa">Sativa</paper-item>
-            <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+          <!-- Species -->
+          <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
+            <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
+              <paper-item key="Indica">Indica</paper-item>
+              <paper-item key="Hybrid (Indica Dominant)">Hybrid (Indica Dominant)</paper-item>
+              <paper-item key="Hybrid (No Dominance)">Hybrid (No Dominance)</paper-item>
+              <paper-item key="Hybrid (Sativa Dominant)">Hybrid (Sativa Dominant)</paper-item>
+              <paper-item key="Sativa">Sativa</paper-item>
+              <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
 
-        <div class="ancestry-genetics">
-          <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
+          <div class="ancestry-genetics">
+            <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Known Ancestry</paper-checkbox>
 
-          <div class="ancestry-spec">
-            <template is="dom-if" if="{{ancestry}}">
-              <paper-input id="maleAncestryField" no-label-float value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
-              <span class="genetics-separator">x</span>
-              <paper-input id="femaleAncestryField" no-label-float value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+            <div class="ancestry-spec">
+              <template is="dom-if" if="{{ancestry}}">
+                <paper-input id="maleAncestryField" no-label-float value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                <span class="genetics-separator">x</span>
+                <paper-input id="femaleAncestryField" no-label-float value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+              </template>
+            </div><!-- end div.ancestry-spec -->
+          </div><!-- end .row.ancestry-genetics -->
+        </div><!-- end .row.category-info -->
+
+        <!-- Pricing/Sale Flags -->
+        <div class="stock-flags row">
+          <div class="row-label">
+            <span class="row-label-value">Inventory</span>
+          </div><!-- end div.row-label -->
+
+          <div class="in-stock-toggle-option">
+            <paper-checkbox id="showToggle" checked="{{visible}}" class="form-item show-item-toggle" noink>In Stock</paper-checkbox>
+          </div><!-- end .in-stock-toggle-option -->
+
+          <div class="premium-toggle-option">
+            <paper-checkbox id="premiumToggle" checked="{{premium}}" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
+          </div><!-- end .premium-toggle-option -->
+
+          <div class="sale-toggle-option">
+            <div class="sale-toggle-container">
+              <paper-checkbox id="saleToggle" checked="[[_isOnSale()]]" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+            </div><!-- end .sale-toggle-container -->
+            <template is="dom-if" if="{{sale}}">
+              <div class="sale-amount-container">
+                <paper-slider id="saleValue" pin value="{{sale}}" max="95" min="5" editable step="5" class="form-item"></paper-slider>
+              </div><!-- end .sale-amount-container -->
+              <div class="sale-percentage-label">% off</div>
             </template>
-          </div><!-- end div.ancestry-spec -->
-        </div><!-- end .row.ancestry-genetics -->
-      </div><!-- end .row.category-info -->
+          </div><!-- end .sale-toggle-option -->
 
-      <!-- Pricing/Sale Flags -->
-      <div class="stock-flags row">
-        <div class="row-label">
-          <span class="row-label-value">Inventory</span>
-        </div><!-- end div.row-label -->
+          <div class="bogo-toggle-option">
+            <paper-checkbox id="bogoToggle" checked="{{bogo}}" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+          </div><!-- end .bogo-toggle-option -->
+        </div><!-- end .row.stock-flags -->
+        
+        <!-- Test Results -->
+        <div class="test-results row">
+          <div class="row-label">
+            <span class="row-label-value">Testing</span>
+          </div><!-- end div.row-label -->
 
-        <div class="in-stock-toggle-option">
-          <paper-checkbox id="showToggle" checked="{{visible}}" class="form-item show-item-toggle" noink>In Stock</paper-checkbox>
-        </div><!-- end .in-stock-toggle-option -->
+          <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
+          <div class="test-results-container">
+            <template is="dom-if" if="{{tests}}">
+              <bloombox-testing
+                id="productTesting"
+                zerostate
+                mode="rich"
+                thc="{{tests.thc}}"
+                cbd="{{tests.cbd}}"
+                terpenes="{{tests.terpenes}}"></bloombox-testing>
+            </template>
+          </div><!-- end .test-results-container -->
+        </div><!-- end .row.test-results -->
 
-        <div class="premium-toggle-option">
-          <paper-checkbox id="premiumToggle" checked="{{premium}}" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
-        </div><!-- end .premium-toggle-option -->
+        <!-- Product Media -->
+        <div class="flower-media row">
+          <div class="bloombox-media-wrap">
+            <bloombox-media
+              partner="[[partner]]"
+              environment="[[environment]]"
+              asset="[[_image]]"
+              on-asset-ready="handleAssetAttach"></bloombox-media>
+          </div><!-- end div.bloombox-media-wrap -->
+        </div><!-- end .row.flower-media -->
 
-        <div class="sale-toggle-option">
-          <div class="sale-toggle-container">
-            <paper-checkbox id="saleToggle" checked="[[_isOnSale()]]" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
-          </div><!-- end .sale-toggle-container -->
-          <template is="dom-if" if="{{sale}}">
-            <div class="sale-amount-container">
-              <paper-slider id="saleValue" pin value="{{sale}}" max="95" min="5" editable step="5" class="form-item"></paper-slider>
-            </div><!-- end .sale-amount-container -->
-            <div class="sale-percentage-label">% off</div>
-          </template>
-        </div><!-- end .sale-toggle-option -->
+        <!-- Price List -->
+        <div class="row pricelist">
+          <bloombox-pricelist
+            class="editablePricelist"
+            manifest='{{pricing}}'
+            currency="$"
+            editable></bloombox-pricelist>
+        </div><!-- end .row.pricelist -->
 
-        <div class="bogo-toggle-option">
-          <paper-checkbox id="bogoToggle" checked="{{bogo}}" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
-        </div><!-- end .bogo-toggle-option -->
-      </div><!-- end .row.stock-flags -->
-      
-      <!-- Test Results -->
-      <div class="test-results row">
-        <div class="row-label">
-          <span class="row-label-value">Testing</span>
-        </div><!-- end div.row-label -->
-
-        <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
-        <div class="test-results-container">
-          <template is="dom-if" if="{{tests}}">
-            <bloombox-testing
-              id="productTesting"
-              zerostate
-              mode="rich"
-              thc="{{tests.thc}}"
-              cbd="{{tests.cbd}}"
-              terpenes="{{tests.terpenes}}"></bloombox-testing>
-          </template>
-        </div><!-- end .test-results-container -->
-      </div><!-- end .row.test-results -->
-
-      <!-- Product Media -->
-      <div class="flower-media row">
-        <div class="bloombox-media-wrap">
-          <bloombox-media
-            partner="[[partner]]"
-            environment="[[environment]]"
-            asset="[[_image]]"
-            on-asset-ready="handleAssetAttach"></bloombox-media>
-        </div><!-- end div.bloombox-media-wrap -->
-      </div><!-- end .row.flower-media -->
-
-      <!-- Price List -->
-      <div class="row pricelist">
-        <bloombox-pricelist
-          class="editablePricelist"
-          manifest='{{pricing}}'
-          currency="$"
-          editable></bloombox-pricelist>
-      </div><!-- end .row.pricelist -->
-
-      <!-- Actions -->
-      <template is="dom-if" if="[[editing]]">
-        <div class="strain-zerostate-actions card-actions row">
-          <paper-button
-            id="saveButton"
-            raised
-            on-tap="commitEdits">
-            <iron-icon icon="save"></iron-icon>Save</paper-button>
-          <paper-button
-            id="cancelButton"
-            on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
-        </div><!-- end .strain-zerostate-actions.card-actions -->
-      </template>
-      <template is="dom-if" if="[[!editing]]">
-        <div class="strain-zerostate-actions edit-actions card-actions row">
-          <paper-button
-            id="submitButton"
-            raised
-            on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
-          <paper-button
-            id="discardButton"
-            on-tap="_triggerDiscard"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
-        </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
-      </template>
+        <!-- Actions -->
+        <template is="dom-if" if="[[editing]]">
+          <div class="strain-zerostate-actions card-actions row">
+            <paper-button
+              id="saveButton"
+              raised
+              on-tap="commitEdits">
+              <iron-icon icon="save"></iron-icon>Save</paper-button>
+            <paper-button
+              id="cancelButton"
+              on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
+          </div><!-- end .strain-zerostate-actions.card-actions -->
+        </template>
+        <template is="dom-if" if="[[!editing]]">
+          <div class="strain-zerostate-actions edit-actions card-actions row">
+            <paper-button
+              id="submitButton"
+              raised
+              on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
+            <paper-button
+              id="discardButton"
+              on-tap="_triggerDiscard"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
+          </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
+        </template>
+      </div><!-- end div.product-card.zerostate -->
     </template>
   </template>
 
