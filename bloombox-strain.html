@@ -254,17 +254,6 @@
               on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
           </div><!-- end .strain-zerostate-actions.card-actions -->
         </template>
-        <template is="dom-if" if="[[!editing]]">
-          <div class="strain-zerostate-actions edit-actions card-actions row">
-            <paper-button
-              id="submitButton"
-              raised
-              on-tap="persist"><iron-icon icon="check-circle"></iron-icon>Create</paper-button>
-            <paper-button
-              id="discardButton"
-              on-tap="_triggerDiscard"><iron-icon icon="cancel"></iron-icon>Discard</paper-button>
-          </div><!-- end .strain-zerostate-actions.card-actions.edit-actions -->
-        </template>
       </div><!-- end div.product-card.zerostate -->
     </template>
   </template>
