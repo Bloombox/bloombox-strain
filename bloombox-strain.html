@@ -74,9 +74,10 @@
               <!-- Test Results -->
               <bloombox-testing
                 mode="rich"
+                rating-mode="%"
                 thc="[[tests.thc]]"
                 cbd="[[tests.cbd]]"
-                terpenes="[[tests.terpenes]]"></bloombox-testing>
+                terpenes="[[_formatTerpenes(tests.terpenes)]]"></bloombox-testing>
             </div><!-- end div.row.stock-flags -->
           </div><!-- end div.name-row -->
 
@@ -340,6 +341,42 @@
       _toggleAncestry: function() {
         this.ancestry = this.$$("#ancestryToggle").checked ?
           {} : undefined;
+      },
+
+      /**
+       * Data formatting function to ensure that incoming terpene
+       * data properly follows the newest format.
+       */
+      _formatTerpenes: function(terpenes) {
+        if (terpenes) {
+          var i, o,
+              tspec = this._toArray(terpenes);
+
+          if (tspec.length == 5 &&
+              terpenes.pinene !== undefined) {
+            // it's the old terpene format
+            o = Polymer.DefaultTerpeneConfig();
+            if (terpenes.caryophyllene === true) {
+              o.betaCaryophyllene.presence = true;
+              o.caryophylleneOxide.presence = true;
+            }
+            if (terpenes.limonene === true) {
+              o.limonene.presence = true;
+            }
+            if (terpenes.linalool === true) {
+              o.linalool.presence = true;
+            }
+            if (terpenes.myrcene === true) {
+              o.myrcene.presence = true;
+            }
+            if (terpenes.pinene === true) {
+              o.alphaPinene.presence = true;
+              o.betaPinene.presence = true;
+            }
+            return o;
+          }
+        }
+        return terpenes;
       },
 
       /**
