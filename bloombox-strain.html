@@ -416,7 +416,7 @@
         payload.grow = this.get("grow");
         payload.species = this.get("species");
         payload.pictures = this.get("photos") || [];
-        payload.pricelist = this.get("pricing");
+        payload.pricelist = this.$$(".strainSealedPricelist").readManifest();
 
         // handle ancestry
         if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
