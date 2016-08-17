@@ -40,7 +40,9 @@
     "bloombox-media": "git@github.com:bloombox/bloombox-media.git#master",
     "bloombox-styles": "git@github.com:bloombox/bloombox-styles.git#master",
     "paper-tabs": "PolymerElements/paper-tabs#^1.6.2",
-    "iron-pages": "PolymerElements/iron-pages#^1.0.8"
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.2",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.2"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
