@@ -465,34 +465,6 @@
       },
 
       /**
-       * Reset this widget's datamodel.
-       */
-      reset: function() {
-        var male, female, sale;
-        this.$$("#nameField").value = null;
-        this.$$("#growField").value = null;
-        this.$$("#speciesField").value = null;
-        this.ancestry = null;
-        this.$$("#ancestryToggle").checked = false;
-        this.$$("#growField").children[0].selected = null;
-        this.$$("#speciesField").children[0].selected = null;
-        this.tests = defaultTestConfig();
-        this.set("photos", []);
-        this.$$("#premiumToggle").checked = false;
-        this.$$("#bogoToggle").checked = false;
-        if (this.sale !== undefined) {
-          this.sale = 0;
-          this.$$("#saleToggle").checked = false;
-        }
-        this.$$("#descriptionField").value = "";
-
-        male = this.$$("#maleAncestryField");
-        if (male) { male.value = null; }
-        female = this.$$("#femaleAncestryField");
-        if (female) { female.value = null; }
-      },
-
-      /**
        * Read underlying object data direct from the current zero-state form.
        */
       readZeroStateForm: function() {
