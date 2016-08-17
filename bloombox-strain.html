@@ -21,6 +21,8 @@
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-textarea.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="../paper-slider/paper-slider.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
@@ -37,9 +39,34 @@
 <dom-module id="bloombox-strain">
   <template>
     <style is="custom-style" include="bloombox-styles">
+      :root {
+        --paper-icon-button-ink-color: green;
+      }
+
       :host {
         display: block;
         width: 100%;
+      }
+
+      .product-card .card-actions {
+        position: absolute;
+        right: 60px;
+        display: flex;
+        flex-direction: column;
+        top: 20px;
+      }
+
+      .product-card .card-actions paper-icon-button {
+        margin-bottom: 10px;
+        color: #333;
+        --paper-icon-button: {
+          background-color: #ddd;
+          border-radius: 24px;
+        };
+      }
+
+      .product-card .card-actions paper-icon-button iron-icon {
+        color: #333;
       }
     </style>
 
@@ -114,8 +141,17 @@
           </template>
         </div><!-- end div.card-content -->
         <div class="card-actions">
-          <paper-button on-tap="edit"><iron-icon icon="create"></iron-icon>Edit</paper-button>
-          <paper-button on-tap="delete"><iron-icon icon="delete"></iron-icon>Delete</paper-button>
+          <paper-icon-button id="editButton" on-tap="edit" icon="create"></paper-icon-button>
+          <paper-tooltip for="editButton" position="left">Edit Flower</paper-tooltip>
+
+          <paper-icon-button id="deleteButton" on-tap="delete" icon="delete"></paper-icon-button>
+          <paper-tooltip for="deleteButton" position="left">Delete Flower</paper-tooltip>
+
+          <paper-icon-button id="markAsInStockButton" on-tap="markAsInStock" icon="check" hidden$="[[visible]]"></paper-icon-button>
+          <paper-tooltip for="markAsInStockButton" position="left">Mark as In-Stock</paper-tooltip>
+
+          <paper-icon-button id="markAsOutOfStockButton" on-tap="markAsOutOfStock" icon="block" hidden$="[[!visible]]"></paper-icon-button>
+          <paper-tooltip for="markAsOutOfStockButton" position="left">Mark as Out-of-Stock</paper-tooltip>
         </div><!-- end div.card-actions -->
       </div><!-- end div.product-card -->
     </template>
@@ -466,13 +502,6 @@
         if (this.$$("#premiumToggle").checked) {
           payload.flags = payload.flags || {};
           payload.flags.premium = true;
-        }
-        if (this.$$("#showToggle").checked) {
-          payload.flags = payload.flags || {};
-          payload.flags.visible = true;
-        } else {
-          payload.flags = payload.flags || {};
-          payload.flags.visible = false;
         }
         if (this.$$("#bogoToggle").checked) {
           payload.flags = payload.flags || {};
