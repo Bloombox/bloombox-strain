@@ -275,14 +275,17 @@
         <!-- Actions -->
         <template is="dom-if" if="[[editing]]" strip-whitespace>
           <div class="strain-zerostate-actions card-actions row">
-            <paper-button
+            <paper-icon-button
               id="saveButton"
-              raised
-              on-tap="commitEdits">
-              <iron-icon icon="save"></iron-icon>Save</paper-button>
-            <paper-button
+              icon="save"
+              on-tap="commitEdits"></paper-icon-button>
+            <paper-tooltip for="saveButton" position="left">Save</paper-tooltip>
+
+            <paper-icon-button
               id="cancelButton"
-              on-tap="cancelEdits"><iron-icon icon="cancel"></iron-icon>Cancel</paper-button>
+              icon="cancel"
+              on-tap="cancelEdits"></paper-icon-button>
+            <paper-tooltip for="cancelButton" position="left">Cancel Edits</paper-tooltip>
           </div><!-- end .strain-zerostate-actions.card-actions -->
         </template>
       </div><!-- end div.product-card.zerostate -->
