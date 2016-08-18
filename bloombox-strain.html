@@ -37,7 +37,7 @@
 
 
 <dom-module id="bloombox-strain">
-  <template>
+  <template strip-whitespace>
     <style is="custom-style" include="bloombox-styles">
       :root {
         --paper-icon-button-ink-color: green;
@@ -73,7 +73,7 @@
     <!-- - - - - - - - - - - -->
     <!--   Sealed  Content   -->
     <!-- - - - - - - - - - - -->
-    <template is="dom-if" if="[[!zerostate]]">
+    <template is="dom-if" if="[[!zerostate]]" strip-whitespace>
       <div class="product-card strain-card">
         <div class="card-content">
           <div class="name-row">
@@ -110,12 +110,7 @@
 
           <!-- Description -->
           <div class="row description-container">
-            <template is="dom-if" if="[[description]]">
-              <div class="product-description">[[description]]</div>
-            </template>
-            <template is="dom-if" if="[[!description]]">
-              <div class="no-description">(No description)</div>
-            </template>
+            <div class$="[[_descriptionClass]]">[[_descriptionText]]</div>
           </div><!-- end div.row.description-container -->
 
           <!-- Product Media -->
@@ -136,7 +131,7 @@
               manifest="[[pricing]]"
               currency="$"></bloombox-pricelist>
           </div><!-- end div.row.pricelist -->
-          <template is="dom-if" if="[[!visible]]">
+          <template is="dom-if" if="[[!visible]]" strip-whitespace>
             <div class="not-in-stock-overlay not-in-stock"></div><!-- end div.not-in-stock-overlay.not-in-stock -->
           </template>
         </div><!-- end div.card-content -->
@@ -159,12 +154,12 @@
     <!-- - - - - - - - - - - -->
     <!-- Zero-State  Content -->
     <!-- - - - - - - - - - - -->
-    <template is="dom-if" if="[[zerostate]]">
+    <template is="dom-if" if="[[zerostate]]" strip-whitespace restamp>
       <div class="product-card strain-card zerostate">
         <div class="basic-info row">
           <!-- Strain Name & Description -->
-          <paper-input id="nameField" placeholder="Strain Name" value="[[name]]" required no-label-float name="name" class="form-item strain-name"></paper-input>
-          <paper-textarea id="descriptionField" label="Description" value="[[description]]" no-label-float name="description" class="form-item strain-description"></paper-textarea>
+          <paper-input id="nameField" value="[[name]]" required autofocus auto-validate error-message="Please provide a name!" label="Name" name="name" class="form-item strain-name"></paper-input>
+          <paper-textarea id="descriptionField" label="Description" value="[[description]]" name="description" class="form-item strain-description"></paper-textarea>
         </div><!-- end .row.basic-info -->
 
         <div class="category-info row">
@@ -173,7 +168,7 @@
           </div><!-- end div.row-label -->
 
           <!-- Grow -->
-          <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink no-label-float required name="grow">
+          <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink auto-validate required name="grow">
             <paper-listbox class="dropdown-content" selected="[[grow]]" attr-for-selected="key">
               <paper-item key="Indoor">Indoor</paper-item>
               <paper-item key="Greenhouse">Greenhouse</paper-item>
@@ -183,7 +178,7 @@
           </paper-dropdown-menu>
 
           <!-- Species -->
-          <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink no-label-float required name="species">
+          <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink auto-validate required name="species">
             <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
               <paper-item key="Indica">Indica</paper-item>
               <paper-item key="Hybrid (Indica Dominant)">Hybrid (Indica Dominant)</paper-item>
@@ -198,10 +193,10 @@
             <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Genetics</paper-checkbox>
 
             <div class="ancestry-spec">
-              <template is="dom-if" if="{{ancestry}}">
-                <paper-input id="maleAncestryField" no-label-float value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+              <template is="dom-if" if="{{ancestry}}" restamp strip-whitespace>
+                <paper-input id="maleAncestryField" no-label-float required auto-validate error-message="Need male parent" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
                 <span class="genetics-separator">x</span>
-                <paper-input id="femaleAncestryField" no-label-float value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+                <paper-input id="femaleAncestryField" no-label-float required auto-validate error-message="Need female parent" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
               </template>
             </div><!-- end div.ancestry-spec -->
           </div><!-- end .row.ancestry-genetics -->
@@ -226,7 +221,7 @@
               <div class="sale-toggle-container">
                 <paper-checkbox id="saleToggle" checked="[[_isOnSale]]" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
               </div><!-- end .sale-toggle-container -->
-              <template is="dom-if" if="{{sale}}">
+              <template is="dom-if" if="{{sale}}" restamp strip-whitespace>
                 <div class="sale-amount-container">
                   <paper-slider id="saleValue" pin max="95" min="5" editable step="5" class="form-item"></paper-slider>
                 </div><!-- end .sale-amount-container -->
@@ -243,7 +238,7 @@
 
             <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
             <div class="test-results-container">
-              <template is="dom-if" if="{{tests}}">
+              <template is="dom-if" if="{{tests}}" restamp strip-whitespace>
                 <bloombox-testing
                   id="productTesting"
                   zerostate
@@ -278,7 +273,7 @@
         </div><!-- end .row.pricelist -->
 
         <!-- Actions -->
-        <template is="dom-if" if="[[editing]]">
+        <template is="dom-if" if="[[editing]]" strip-whitespace>
           <div class="strain-zerostate-actions card-actions row">
             <paper-button
               id="saveButton"
