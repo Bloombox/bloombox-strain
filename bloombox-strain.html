@@ -432,6 +432,7 @@
           payload.tests = {
             thc: this.get("tests").thc,
             cbd: this.get("tests").cbd,
+            mode: this.get("tests").mode || '%',
             terpenes: this.get("tests").terpenes
           };
         }
@@ -492,6 +493,7 @@
           payload.tests = {
             thc: testing.thc,
             cbd: testing.cbd,
+            mode: testing.ratingMode || '%',
             terpenes: testing.terpenes
           };
         }
