@@ -157,8 +157,8 @@
       <div class="product-card strain-card zerostate">
         <div class="basic-info row">
           <!-- Strain Name & Description -->
-          <paper-input id="nameField" value="[[name]]" required autofocus auto-validate error-message="Please provide a name!" label="Name" name="name" class="form-item strain-name"></paper-input>
-          <paper-textarea id="descriptionField" label="Description" value="[[description]]" name="description" class="form-item strain-description"></paper-textarea>
+          <paper-input id="nameField" value="[[name]]" tabindex="0" required autofocus auto-validate error-message="Please provide a name!" label="Name" name="name" class="form-item strain-name"></paper-input>
+          <paper-textarea id="descriptionField" label="Description" tabindex="1" value="[[description]]" name="description" class="form-item strain-description"></paper-textarea>
         </div><!-- end .row.basic-info -->
 
         <div class="category-info row">
@@ -167,7 +167,7 @@
           </div><!-- end div.row-label -->
 
           <!-- Grow -->
-          <paper-dropdown-menu id="growField" label="Grow" class="form-item" noink auto-validate required name="grow">
+          <paper-dropdown-menu id="growField" label="Grow" tabindex="2" class="form-item" noink auto-validate required name="grow">
             <paper-listbox class="dropdown-content" selected="[[grow]]" attr-for-selected="key">
               <paper-item key="Indoor">Indoor</paper-item>
               <paper-item key="Greenhouse">Greenhouse</paper-item>
@@ -177,7 +177,7 @@
           </paper-dropdown-menu>
 
           <!-- Species -->
-          <paper-dropdown-menu id="speciesField" label="Species" class="form-item" noink auto-validate required name="species">
+          <paper-dropdown-menu id="speciesField" label="Species" tabindex="3" class="form-item" noink auto-validate required name="species">
             <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
               <paper-item key="Indica">Indica</paper-item>
               <paper-item key="Hybrid (Indica Dominant)">Hybrid (Indica Dominant)</paper-item>
@@ -189,13 +189,13 @@
           </paper-dropdown-menu>
 
           <div class="ancestry-genetics">
-            <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Genetics</paper-checkbox>
+            <paper-checkbox id="ancestryToggle" on-tap="_toggleAncestry" tabindex="4" checked="[[_knownAncestry()]]" class="ancestry-toggle" class="form-item" noink name="ancestryKnown">Genetics</paper-checkbox>
 
             <div class="ancestry-spec">
               <template is="dom-if" if="{{ancestry}}" restamp strip-whitespace>
-                <paper-input id="maleAncestryField" no-label-float required auto-validate error-message="Need male parent" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
+                <paper-input id="maleAncestryField" no-label-float required tabindex="5" auto-validate error-message="Need male parent" value="[[ancestry.male]]" class="form-item" label="Male" name="maleAncestry"></paper-input>
                 <span class="genetics-separator">x</span>
-                <paper-input id="femaleAncestryField" no-label-float required auto-validate error-message="Need female parent" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
+                <paper-input id="femaleAncestryField" no-label-float required tabindex="6" auto-validate error-message="Need female parent" value="[[ancestry.female]]" class="form-item" label="Female" name="femaleAncestry"></paper-input>
               </template>
             </div><!-- end div.ancestry-spec -->
           </div><!-- end .row.ancestry-genetics -->
@@ -209,20 +209,20 @@
             </div><!-- end div.row-label -->
 
             <div class="premium-toggle-option">
-              <paper-checkbox id="premiumToggle" checked="{{premium}}" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
+              <paper-checkbox id="premiumToggle" checked="{{premium}}" tabindex="7" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
             </div><!-- end .premium-toggle-option -->
 
             <div class="bogo-toggle-option">
-              <paper-checkbox id="bogoToggle" checked="{{bogo}}" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+              <paper-checkbox id="bogoToggle" checked="{{bogo}}" tabindex="8" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
             </div><!-- end .bogo-toggle-option -->
 
             <div class="sale-toggle-option">
               <div class="sale-toggle-container">
-                <paper-checkbox id="saleToggle" checked="[[_isOnSale]]" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+                <paper-checkbox id="saleToggle" checked="[[_isOnSale]]" tabindex="9" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
               </div><!-- end .sale-toggle-container -->
               <template is="dom-if" if="{{sale}}" restamp strip-whitespace>
                 <div class="sale-amount-container">
-                  <paper-slider id="saleValue" pin max="95" min="5" editable step="5" class="form-item"></paper-slider>
+                  <paper-slider id="saleValue" pin max="95" min="5" tabindex="10" editable step="5" class="form-item"></paper-slider>
                 </div><!-- end .sale-amount-container -->
                 <div class="sale-percentage-label">% off</div>
               </template>
@@ -235,7 +235,7 @@
               <span class="row-label-value">Testing</span>
             </div><!-- end div.row-label -->
 
-            <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
+            <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" tabindex="11" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
             <div class="test-results-container">
               <template is="dom-if" if="{{tests}}" restamp strip-whitespace>
                 <bloombox-testing
