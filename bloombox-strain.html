@@ -480,6 +480,8 @@
 
         if (this.get("photos") && this.get("photos").length > 0)
           payload.pictures = this.get("photos");
+        else
+          payload.pictures = [];
 
         // handle ancestry
         if (this.$$("#ancestryToggle").checked) {
