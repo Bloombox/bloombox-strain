@@ -435,7 +435,7 @@
             thc: this.get("tests").thc,
             cbd: this.get("tests").cbd,
             mode: this.get("tests").mode || '%',
-            terpenes: this.get("tests").terpenes
+            terpenes: this._processTerpenes(this.get("tests").terpenes)
           };
         }
 
@@ -498,7 +498,7 @@
             thc: testing.thc,
             cbd: testing.cbd,
             mode: testing.ratingMode || '%',
-            terpenes: testing.terpenes
+            terpenes: this._processTerpenes(testing.terpenes)
           };
         }
 
