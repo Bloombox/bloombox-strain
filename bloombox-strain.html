@@ -483,7 +483,7 @@
             testing;
 
         // handle required fields
-        payload.name = this.$$("#nameField").value;
+        payload.name = this._trim(this.$$("#nameField").value);
         payload.grow = this.$$("#growField").value;
         payload.species = this.$$("#speciesField").value;
 
@@ -537,7 +537,7 @@
           payload.flags.sale = null;
         }
         if (this.$$("#descriptionField") && this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0) {
-          payload.description = this.$$("#descriptionField").value;
+          payload.description = this._trim(this.$$("#descriptionField").value);
         } else {
           payload.description = null;  // clear any current description
         }
