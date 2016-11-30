@@ -465,9 +465,8 @@
           payload.flags = payload.flags || {};
           payload.flags.bogo = false;
         }
-        if (this.get("description") !== undefined && this.get("description") !== null &&
-            this.get("description").length > 0) {
-          payload.description = this.get("description")
+        if (this.get("description")) {
+          payload.description = this.get("description");
         } else {
           payload.description = null;  // clear any current description
         }
@@ -536,7 +535,8 @@
           payload.flags = payload.flags || {};
           payload.flags.sale = null;
         }
-        if (this.$$("#descriptionField") && this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0) {
+        if (this.$$("#descriptionField") && this.$$("#descriptionField").value &&
+            this.$$("#descriptionField").value.length > 0) {
           payload.description = this._trim(this.$$("#descriptionField").value);
         } else {
           payload.description = null;  // clear any current description
