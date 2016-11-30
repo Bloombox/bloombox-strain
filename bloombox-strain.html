@@ -443,10 +443,16 @@
         if (this.get("premium") == true) {
           payload.flags = payload.flags || {};
           payload.flags.premium = true;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.premium = false;
         }
         if (this.get("sale") !== undefined && this.get("sale") != null) {
           payload.flags = payload.flags || {};
           payload.flags.sale = this.get("sale");
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.sale = null;
         }
         if (this.get("visible") != null && this.get("visible") != undefined) {
           payload.flags = payload.flags || {};
@@ -455,12 +461,15 @@
         if (this.get("bogo") != null && this.get("bogo") != undefined) {
           payload.flags = payload.flags || {};
           payload.flags.bogo = this.get("bogo");
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.bogo = false;
         }
         if (this.get("description") !== undefined && this.get("description") !== null &&
             this.get("description").length > 0) {
           payload.description = this.get("description")
         } else {
-          payload.description = null;
+          payload.description = null;  // clear any current description
         }
         return payload;
       },
@@ -509,19 +518,29 @@
         if (this.$$("#premiumToggle").checked) {
           payload.flags = payload.flags || {};
           payload.flags.premium = true;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.premium = false;
         }
         if (this.$$("#bogoToggle").checked) {
           payload.flags = payload.flags || {};
           payload.flags.bogo = true;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.bogo = false;
         }
         if (this.$$("#saleToggle").checked) {
           payload.flags = payload.flags || {};
           payload.flags.sale = this.$$("#saleValue").value;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.sale = null;
         }
-        if (this.$$("#descriptionField").value !== undefined
-            && typeof this.$$("#descriptionField").value === "string"
-            && this.$$("#descriptionField").value.length > 0)
+        if (this.$$("#descriptionField") && this.$$("#descriptionField").value !== undefined && this.$$("#descriptionField").value.length > 0) {
           payload.description = this.$$("#descriptionField").value;
+        } else {
+          payload.description = null;  // clear any current description
+        }
         return payload;
       }
     });
