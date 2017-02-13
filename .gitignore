@@ -1,5 +1,6 @@
 target/
 bower_components/
 node_modules/
-release.tar.gz
-npm-debug.log
+dist/
+components/
+*.tar.gz
