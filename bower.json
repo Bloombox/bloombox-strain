@@ -34,11 +34,11 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.2.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.2.1",
-    "bloombox-product": "git@github.com:bloombox/bloombox-product.git#master",
-    "bloombox-pricelist": "git@github.com:bloombox/bloombox-pricelist.git#master",
-    "bloombox-testing": "git@github.com:bloombox/bloombox-testing.git#master",
-    "bloombox-media": "git@github.com:bloombox/bloombox-media.git#master",
-    "bloombox-styles": "git@github.com:bloombox/bloombox-styles.git#master",
+    "bloombox-product": "Bloombox/bloombox-product",
+    "bloombox-pricelist": "Bloombox/bloombox-pricelist",
+    "bloombox-testing": "Bloombox/bloombox-testing",
+    "bloombox-media": "Bloombox/bloombox-media",
+    "bloombox-styles": "Bloombox/bloombox-styles",
     "paper-tabs": "PolymerElements/paper-tabs#^1.6.2",
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.2",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.2"
@@ -49,7 +49,6 @@
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
-    "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }
