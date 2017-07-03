@@ -76,7 +76,12 @@
       <div class="product-card strain-card">
         <div class="card-content">
           <div class="name-row">
-            <h2>[[name]]</h2> 
+            <template is="dom-if" if="[[brand]]">
+              <h2>[[brand]]: [[name]]</h2>
+            </template>
+            <template is="dom-if" if="[[!brand]]">
+              <h2>[[name]]</h2>
+            </template>
 
             <!-- Stock Flags -->
             <div class="stock-flags strain-info test-info">
