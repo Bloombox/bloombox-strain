@@ -76,12 +76,7 @@
       <div class="product-card strain-card">
         <div class="card-content">
           <div class="name-row">
-            <template is="dom-if" if="[[brand]]">
-              <h2>[[brand]]: [[name]]</h2>
-            </template>
-            <template is="dom-if" if="[[!brand]]">
-              <h2>[[name]]</h2>
-            </template>
+            <h2><span class="item-brand">[[brand]]</span> [[name]]</h2>
 
             <!-- Stock Flags -->
             <div class="stock-flags strain-info test-info">
@@ -132,12 +127,12 @@
           </div><!-- end .row.test-results -->
 
           <!-- Price List -->
-          <div class="row pricelist">
+          <div class="row pricing">
             <bloombox-pricelist
-              class="strainSealedPricelist"
+              class="strainSealedpricing"
               manifest="[[pricing]]"
               currency="$"></bloombox-pricelist>
-          </div><!-- end div.row.pricelist -->
+          </div><!-- end div.row.pricing -->
           <template is="dom-if" if="[[!visible]]" strip-whitespace>
             <div class="not-in-stock-overlay not-in-stock"></div><!-- end div.not-in-stock-overlay.not-in-stock -->
           </template>
@@ -166,6 +161,7 @@
         <div class="basic-info row">
           <!-- Strain Name & Description -->
           <paper-input id="nameField" value="[[name]]" tabindex="0" required autofocus auto-validate error-message="Please provide a name!" label="Name" name="name" class="form-item strain-name"></paper-input>
+          <paper-input id="brandField" placeholder="Brand Name" autofocus tabindex="0" value="[[brand]]" required auto-validate error-message="Please provide a brand!" no-label-float name="brand" class="form-item strain-brand"></paper-input>
           <paper-textarea id="descriptionField" label="Description" tabindex="1" value="[[description]]" name="description" class="form-item strain-description"></paper-textarea>
         </div><!-- end .row.basic-info -->
 
@@ -188,9 +184,9 @@
           <paper-dropdown-menu id="speciesField" label="Species" tabindex="3" class="form-item" noink auto-validate required name="species">
             <paper-listbox class="dropdown-content" selected="[[species]]" attr-for-selected="key">
               <paper-item key="Indica">Indica</paper-item>
-              <paper-item key="Hybrid > Indica Dominant">Hybrid (Indica Dominant)</paper-item>
+              <paper-item key="Hybrid > Indica Dominant">Hybrid (Indica)</paper-item>
               <paper-item key="Hybrid">Hybrid (No Dominance)</paper-item>
-              <paper-item key="Hybrid > Sativa Dominant">Hybrid (Sativa Dominant)</paper-item>
+              <paper-item key="Hybrid > Sativa Dominant">Hybrid (Sativa)</paper-item>
               <paper-item key="Sativa">Sativa</paper-item>
               <paper-item key="Unspecified" class="unspecified-item-value">Unspecified</paper-item>
             </paper-listbox>
@@ -277,13 +273,13 @@
         </div><!-- end .row.flower-media -->
 
         <!-- Price List -->
-        <div class="row pricelist">
+        <div class="row pricing">
           <bloombox-pricelist
-            class="editablePricelist"
+            class="editablepricing"
             manifest='{{pricing}}'
             currency="$"
             editable></bloombox-pricelist>
-        </div><!-- end .row.pricelist -->
+        </div><!-- end .row.pricing -->
 
         <!-- Actions -->
         <template is="dom-if" if="[[editing]]" strip-whitespace>
@@ -428,10 +424,11 @@
 
         // handle required fields
         payload.name = this.get("name");
+        payload.brand = this.get("brand");
         payload.grow = this.get("grow");
         payload.species = this.get("species");
         payload.pictures = this.get("photos") || [];
-        payload.pricelist = this.$$(".strainSealedPricelist").readManifest();
+        payload.pricing = this.$$(".strainSealedpricing").readManifest();
 
         // handle ancestry
         if (this.get("ancestry") !== undefined && this.get("ancestry") != null) {
@@ -497,11 +494,12 @@
        */
       readZeroStateForm: function() {
         var payload = {},
-            manifest = this.$$(".editablePricelist").readManifest(),
+            manifest = this.$$(".editablepricing").readManifest(),
             testing;
 
         // handle required fields
         payload.name = this._trim(this.$$("#nameField").value);
+        payload.brand = this._trim(this.$$("#brandField").value);
         payload.grow = this.$$("#growField").value;
         payload.species = this.$$("#speciesField").value;
 
@@ -530,7 +528,7 @@
         }
 
         // handle pricing
-        payload.pricelist = manifest;
+        payload.pricing = manifest;
 
         // handle optional fields
         if (this.$$("#premiumToggle").checked) {
