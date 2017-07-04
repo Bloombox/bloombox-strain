@@ -1,6 +1,6 @@
 {
   "name": "bloombox-strain",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Provides UI to create and manage strains of cannabis flowers",
   "private": true,
   "authors": [
