@@ -105,7 +105,16 @@
                 mode="rich"
                 rating-mode="%"
                 thc="[[tests.thc]]"
+                thca="[[tests.thca]]"
+                thcv="[[tests.thcv]]"
                 cbd="[[tests.cbd]]"
+                cbda="[[tests.cbda]]"
+                cbc="[[tests.cbc]]"
+                cbv="[[tests.cbv]]"
+                cbva="[[tests.cbva]]"
+                cbg="[[tests.cbg]]"
+                cbga="[[tests.cbga]]"
+                cbn="[[tests.cbn]]"
                 terpenes="[[_formatTerpenes(tests.terpenes)]]"></bloombox-testing>
             </div><!-- end div.row.stock-flags -->
           </div><!-- end div.name-row -->
@@ -252,7 +261,16 @@
                   mode="rich"
                   rating-mode="%"
                   thc="{{tests.thc}}"
+                  thca="{{tests.thca}}"
+                  thcv="{{tests.thcv}}"
                   cbd="{{tests.cbd}}"
+                  cbda="{{tests.cbda}}"
+                  cbc="{{tests.cbc}}"
+                  cbv="{{tests.cbv}}"
+                  cbva="{{tests.cbva}}"
+                  cbg="{{tests.cbg}}"
+                  cbga="{{tests.cbga}}"
+                  cbn="{{tests.cbn}}"
                   terpenes="[[_formatTerpenes(tests.terpenes)]]"></bloombox-testing>
               </template>
             </div><!-- end .test-results-container -->
@@ -305,7 +323,16 @@
     function defaultTestConfig() {
       return {
         thc: 0.0,
+        thca: 0.0,
+        thcv: 0.0,
         cbd: 0.0,
+        cbda: 0.0,
+        cbc: 0.0,
+        cbv: 0.0,
+        cbva: 0.0,
+        cbg: 0.0,
+        cbga: 0.0,
+        cbn: 0.0,
         mode: '%',
         terpenes: Polymer.DefaultTerpeneConfig()};
     };
@@ -409,6 +436,10 @@
               o.alphaPinene.presence = true;
               o.betaPinene.presence = true;
             }
+            if (terpenes.ocimene === true) {
+              o.alphaOcimene.presence = true;
+              o.betaOcimene.presence = true;
+            }
             return o;
           }
         }
@@ -442,7 +473,16 @@
         if (this.get("tests") !== undefined && this.get("tests") != null) {
           payload.tests = {
             thc: this.get("tests").thc,
+            thca: this.get("tests").thca
+            thcv: this.get("tests").thcv,
             cbd: this.get("tests").cbd,
+            cbda: this.get("tests").cbda,
+            cbc: this.get("tests").cbc,
+            cbv: this.get("tests").cbv,
+            cbva: this.get("tests").cbva,
+            cbg: this.get("tests").cbg,
+            cbga: this.get("tests").cbga,
+            cbn: this.get("tests").cbn,
             mode: this.get("tests").mode || '%',
             terpenes: this._processTerpenes(this.get("tests").terpenes)
           };
@@ -521,7 +561,16 @@
           testing = this.$$("#productTesting");
           payload.tests = {
             thc: testing.thc,
+            thca: testing.thca,
+            thcv: testing.thcv,
             cbd: testing.cbd,
+            cbda: testing.cbda,
+            cbc: testing.cbc,
+            cbv: testing.cbv,
+            cbva: testing.cbva,
+            cbg: testing.cbg,
+            cbga: testing.cbga,
+            cbn: testing.cbn,
             mode: testing.ratingMode || '%',
             terpenes: this._processTerpenes(testing.terpenes)
           };
