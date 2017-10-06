@@ -93,6 +93,9 @@
                 <!-- Last-Chance -->
                 <iron-label class="lastchance-label" hidden$="[[!lastchance]]"><span>Last Chance</span></iron-label>
 
+                <!-- Featured -->
+                <iron-label class="featured-label" hidden$="[[!featured]]"><span>Featured</span></iron-label>
+
                 <!-- Grow -->
                 <iron-label class="grow-label"><span>[[grow]]</span></iron-label>
 
@@ -221,25 +224,30 @@
               <span class="row-label-value">Inventory</span>
             </div><!-- end div.row-label -->
 
+            <div class="featured-toggle-option">
+              <paper-checkbox id="featuredToggle" checked="{{featured}}" tabindex="7" class="form-item item-featured-toggle" noink>Featured</paper-checkbox>
+            </div><!-- end .featured-toggle-option -->
+
+
             <div class="premium-toggle-option">
-              <paper-checkbox id="premiumToggle" checked="{{premium}}" tabindex="7" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
+              <paper-checkbox id="premiumToggle" checked="{{premium}}" tabindex="8" class="form-item premium-toggle" noink>[[_renderPremiumLabel(partner)]]</paper-checkbox>
             </div><!-- end .premium-toggle-option -->
 
             <div class="bogo-toggle-option">
-              <paper-checkbox id="bogoToggle" checked="{{bogo}}" tabindex="8" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
+              <paper-checkbox id="bogoToggle" checked="{{bogo}}" tabindex="9" class="form-item item-bogo-toggle" noink>Buy One, Get One</paper-checkbox>
             </div><!-- end .bogo-toggle-option -->
 
              <div class="lastchance-toggle-option">
-              <paper-checkbox id="lastchanceToggle" checked="{{lastchance}}" tabindex="9" class="form-item item-lastchance-toggle" noink>Last Chance</paper-checkbox>
+              <paper-checkbox id="lastchanceToggle" checked="{{lastchance}}" tabindex="10" class="form-item item-lastchance-toggle" noink>Last Chance</paper-checkbox>
             </div><!-- end .lastchance-toggle-option -->
 
             <div class="sale-toggle-option">
               <div class="sale-toggle-container">
-                <paper-checkbox id="saleToggle" checked="[[_isOnSale]]" tabindex="10" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
+                <paper-checkbox id="saleToggle" checked="[[_isOnSale]]" tabindex="11" on-tap="_toggleSale" class="form-item sale-toggle" noink>On Sale</paper-checkbox>
               </div><!-- end .sale-toggle-container -->
               <template is="dom-if" if="{{sale}}" restamp strip-whitespace>
                 <div class="sale-amount-container">
-                  <paper-slider id="saleValue" pin max="95" min="5" tabindex="11" editable step="5" class="form-item"></paper-slider>
+                  <paper-slider id="saleValue" pin max="95" min="5" tabindex="12" editable step="5" class="form-item"></paper-slider>
                 </div><!-- end .sale-amount-container -->
                 <div class="sale-percentage-label">% off</div>
               </template>
@@ -252,7 +260,7 @@
               <span class="row-label-value">Testing</span>
             </div><!-- end div.row-label -->
 
-            <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" tabindex="11" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
+            <paper-checkbox id="testsToggle" checked="[[_hasKnownTestResults()]]" tabindex="13" on-tap="_toggleTests" class="form-item tests-toggle" noink>Test Results</paper-checkbox>
             <div class="test-results-container">
               <template is="dom-if" if="{{tests}}" restamp strip-whitespace>
                 <bloombox-testing
@@ -521,6 +529,13 @@
           payload.flags = payload.flags || {};
           payload.flags.lastchance = false;
         }
+        if (this.get("featured") != null && this.get("featured") != undefined) {
+          payload.flags = payload.flags || {};
+          payload.flags.featured = this.get("featured");
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.featured = false;
+        }
         if (this.get("description")) {
           payload.description = this.get("description");
         } else {
@@ -600,6 +615,13 @@
         } else {
           payload.flags = payload.flags || {};
           payload.flags.lastchance = false
+        }
+        if (this.$$("#featuredToggle").checked) {
+          payload.flags = payload.flags || {};
+          payload.flags.featured = true;
+        } else {
+          payload.flags = payload.flags || {};
+          payload.flags.featured = false
         }
         if (this.$$("#saleToggle").checked) {
           payload.flags = payload.flags || {};
