@@ -1,6 +1,6 @@
 {
   "name": "bloombox-strain",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Provides UI for viewing, editing and creating cannabis flower strains",
   "main": "index.html",
   "repository": {
